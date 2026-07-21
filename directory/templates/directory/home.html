@@ -1,0 +1,78 @@
+{% extends "directory/base.html" %}
+{% load harit_extras %}
+{% block content %}
+<section class="hero"><div class="container hero-grid">
+  <div class="hero-left">
+    <div class="eyebrow">The Green Energy Directory · {{ site.region }}</div>
+    <h1 class="display">Cleaner energy,<br>closer to home.</h1>
+    <div class="rule"></div>
+    <p class="lede">Every way to green your home — rooftop solar to rainwater — with honest guidance, free planning tools, and trusted local dealers you can actually call.</p>
+    <div style="display:flex;gap:12px;margin-top:30px;flex-wrap:wrap">
+      <a class="btn btn-forest" href="{% url 'dealers' %}">Find a Dealer</a>
+      <a class="btn btn-ghost" href="{% url 'tools' %}">Try the Free Tools</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="n">{{ n_categories }}</div><div class="l">Green solutions</div></div>
+      <div class="hstat"><div class="n">{{ n_dealers }}</div><div class="l">Local dealers</div></div>
+      <div class="hstat"><div class="n">{{ n_tools }}</div><div class="l">Free tools</div></div>
+      <div class="hstat"><div class="n">₹0</div><div class="l">Cost to you</div></div>
+    </div>
+  </div>
+  <div class="hero-right"><div class="hero-art">
+    <svg viewBox="0 0 200 200" fill="none" stroke="#1E4D3B" stroke-width="1.2">
+      <circle cx="100" cy="100" r="86" stroke="#E6E3D8"/><circle cx="100" cy="100" r="62" stroke="#E6E3D8"/>
+      <path d="M100 14v14M100 172v14M14 100h14M172 100h14M39 39l10 10M151 151l10 10M161 39l-10 10M49 151l-10 10" stroke="#B8934A"/>
+      <rect x="62" y="86" width="76" height="44" rx="3"/><path d="M62 101h76M62 116h76M81 86v44M100 86v44M119 86v44"/>
+      <path d="M100 130v18M85 148h30"/><path d="M100 62c0-12 10-16 10-24 0 8 10 12 10 24a10 10 0 0 1-20 0Z" stroke="#6E8F7D"/>
+    </svg>
+  </div></div>
+</div></section>
+
+<section class="section" style="padding-top:24px"><div class="container">
+  <div class="eyebrow">Every path to green</div>
+  <h2 class="display">Every way to start</h2>
+  <p class="lede">Solar is the headline — but it's one of many. Pick what fits your home, budget and water table.</p>
+  <div class="cat-grid">
+    {% for c in categories %}
+    <a class="cat-card" href="{% url 'category' c.slug %}">{% cat_icon c.icon %}<h3>{{ c.name }}</h3><p>{{ c.short }}</p><span class="go">EXPLORE →</span></a>
+    {% endfor %}
+  </div>
+</div></section>
+
+<section class="section tight" style="background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="container">
+  <div class="steps">
+    <div class="step"><div class="num">01</div><h3>Understand</h3><p>Read the plain-language guide for the solution you're eyeing — costs, subsidies, honest caveats.</p></div>
+    <div class="step"><div class="num">02</div><h3>Estimate</h3><p>Run the free calculator. Know your size, savings and payback before any dealer visits.</p></div>
+    <div class="step"><div class="num">03</div><h3>Connect</h3><p>Call or WhatsApp a listed local dealer — or send one enquiry and let them reach you.</p></div>
+  </div>
+</div></section>
+
+<section class="section"><div class="container">
+  <div class="eyebrow">Know before you spend</div>
+  <h2 class="display">Free planning tools</h2>
+  <div class="tool-grid">
+    {% for t in tools %}
+    <a class="tool-card" href="{% url 'tool' t.slug %}"><div class="tico">Free tool</div><h3>{{ t.name }}</h3><p>{{ t.description }}</p></a>
+    {% endfor %}
+  </div>
+  <div style="margin-top:22px"><a class="btn btn-ghost" href="{% url 'tools' %}">All {{ n_tools }} tools →</a></div>
+</div></section>
+
+<section class="impact"><div class="container">
+  <div class="eyebrow">Why this exists</div>
+  <h2>Going green in India shouldn't require ten phone calls and a leap of faith.</h2>
+  <p>HARIT puts honest information and real local suppliers in one place — free for every homeowner, always.</p>
+  <div style="margin-top:24px"><a class="btn" style="background:#fff;color:var(--forest)" href="{% url 'enquiry' %}">Get quotes now</a></div>
+</div></section>
+
+{% if featured_dealers %}
+<section class="section"><div class="container">
+  <div class="eyebrow">Trusted locals</div>
+  <h2 class="display">Featured dealers</h2>
+  <div class="dealer-grid" style="margin-top:30px">
+    {% for d in featured_dealers %}{% include "directory/_dealer.html" %}{% endfor %}
+  </div>
+  <div style="margin-top:22px"><a class="btn btn-ghost" href="{% url 'dealers' %}">Browse all dealers →</a></div>
+</div></section>
+{% endif %}
+{% endblock %}

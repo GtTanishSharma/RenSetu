@@ -1,0 +1,237 @@
+{% load harit_extras %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}HARIT — The Green Energy Directory · {{ site.region }}{% endblock %}</title>
+<meta name="description" content="{% block description %}Find trusted dealers for rooftop solar, wind, rainwater harvesting, EV charging and more across {{ site.region }}. Free tools, honest guides, verified suppliers.{% endblock %}">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --paper:#FAF9F4;--card:#FFFFFF;--ink:#17241D;--forest:#1E4D3B;--sage:#6E8F7D;
+    --gold:#B8934A;--line:#E6E3D8;--soft:#F1EFE6;--muted:#6C7A72;--red:#B4552D;
+    --serif:Georgia,"DejaVu Serif","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","DejaVu Sans",Arial,sans-serif;
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;}
+  a{color:inherit;text-decoration:none;cursor:pointer;}
+  button{font-family:inherit;cursor:pointer;}
+  .container{max-width:1140px;margin:0 auto;padding:0 24px;}
+  header{position:sticky;top:0;z-index:60;background:rgba(250,249,244,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1200px;margin:0 auto;}
+  .logo{font-family:var(--serif);font-size:24px;letter-spacing:5px;font-weight:400;}
+  .logo b{color:var(--forest);font-weight:400;}
+  .logo .dot{color:var(--gold);}
+  .nav{display:flex;gap:28px;align-items:center;}
+  .nav a{font-size:14px;letter-spacing:.3px;color:#3A4A41;padding:4px 0;border-bottom:1.5px solid transparent;}
+  .nav a:hover{color:var(--forest);}
+  .nav a.active{color:var(--forest);border-bottom-color:var(--gold);}
+  .nav .cta{background:var(--forest);color:#fff;padding:10px 18px;border-radius:3px;font-size:13.5px;letter-spacing:.4px;border-bottom:none;}
+  .nav .cta:hover{background:#173D2F;color:#fff;}
+  .burger{display:none;background:none;border:none;font-size:22px;color:var(--ink);}
+  .eyebrow{font-size:12px;letter-spacing:3.5px;color:var(--gold);font-weight:600;text-transform:uppercase;margin-bottom:14px;}
+  h1.display{font-family:var(--serif);font-weight:400;font-size:52px;line-height:1.12;letter-spacing:-.5px;}
+  h2.display{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.2;margin-bottom:12px;}
+  .lede{font-size:17px;color:var(--muted);max-width:560px;}
+  .rule{width:56px;height:2px;background:var(--gold);margin:26px 0;}
+  .section{padding:72px 0;}
+  .section.tight{padding:48px 0;}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:14.5px;letter-spacing:.4px;border:1px solid transparent;}
+  .btn-forest{background:var(--forest);color:#fff;}
+  .btn-forest:hover{background:#173D2F;}
+  .btn-ghost{border-color:var(--forest);color:var(--forest);background:transparent;}
+  .btn-ghost:hover{background:var(--forest);color:#fff;}
+  .btn-wa{background:#1FA855;color:#fff;display:inline-flex;align-items:center;gap:8px;}
+  .btn-wa:hover{background:#178A45;}
+  .wa-ic{width:16px;height:16px;flex-shrink:0;}
+  .badge-v{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--forest);font-weight:600;letter-spacing:.5px;}
+  .badge-v svg{width:13px;height:13px;}
+  .hero{padding:88px 0 76px;position:relative;overflow:hidden;}
+  .hero::before{content:"";position:absolute;right:-140px;top:-140px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(30,77,59,.07),transparent 65%);}
+  .hero-grid{display:flex;gap:60px;align-items:center;position:relative;z-index:2;}
+  .hero-left{flex:1.2;}
+  .hero-right{flex:1;display:flex;justify-content:center;}
+  .hero-stats{display:flex;gap:0;margin-top:38px;border-top:1px solid var(--line);padding-top:22px;}
+  .hstat{padding-right:36px;margin-right:36px;border-right:1px solid var(--line);}
+  .hstat:last-child{border-right:none;}
+  .hstat .n{font-family:var(--serif);font-size:26px;color:var(--forest);}
+  .hstat .l{font-size:12.5px;color:var(--muted);letter-spacing:.5px;}
+  .hero-art{width:340px;height:340px;}
+  .hero-art svg{width:100%;height:100%;}
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px;}
+  .cat-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:26px 22px;transition:.22s;display:block;}
+  .cat-card:hover{border-color:var(--sage);transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,36,29,.07);}
+  .cat-card .ic{width:38px;height:38px;margin-bottom:16px;display:block;}
+  .cat-card .ic svg{width:100%;height:100%;stroke:var(--forest);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  .cat-card h3{font-size:16px;font-weight:600;margin-bottom:6px;letter-spacing:.2px;}
+  .cat-card p{font-size:13px;color:var(--muted);line-height:1.5;}
+  .cat-card .go{font-size:12.5px;color:var(--gold);letter-spacing:1px;margin-top:12px;display:inline-block;}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:44px;}
+  .step .num{font-family:var(--serif);font-size:44px;color:var(--line);line-height:1;margin-bottom:14px;}
+  .step h3{font-size:17px;margin-bottom:8px;}
+  .step p{font-size:14.5px;color:var(--muted);}
+  .tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
+  .tool-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px;transition:.22s;display:block;}
+  .tool-card:hover{border-color:var(--sage);transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,36,29,.07);}
+  .tool-card .tico{font-size:12px;letter-spacing:2px;color:var(--gold);margin-bottom:10px;text-transform:uppercase;}
+  .tool-card h3{font-family:var(--serif);font-weight:400;font-size:20px;margin-bottom:8px;}
+  .tool-card p{font-size:13.5px;color:var(--muted);}
+  .dealer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .dealer{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:.2s;}
+  .dealer:hover{box-shadow:0 12px 28px rgba(23,36,29,.07);}
+  .dealer .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .dealer h3{font-size:16.5px;font-weight:600;line-height:1.3;}
+  .dealer .area{font-size:13px;color:var(--muted);}
+  .dealer .cats{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 4px;}
+  .dealer .cats span{font-size:11px;background:var(--soft);border:1px solid var(--line);color:#4A5A50;padding:3px 9px;border-radius:12px;}
+  .dealer .desc{font-size:13px;color:var(--muted);line-height:1.55;flex:1;}
+  .dealer .actions{display:flex;gap:8px;margin-top:6px;}
+  .dealer .call{flex:1;text-align:center;border:1px solid var(--forest);color:var(--forest);padding:10px;border-radius:3px;font-size:13.5px;font-weight:600;}
+  .dealer .call:hover{background:var(--forest);color:#fff;}
+  .dealer .wa{flex:1;text-align:center;background:#1FA855;color:#fff;padding:10px;border-radius:3px;font-size:13.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;}
+  .dealer .wa:hover{background:#178A45;}
+  .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:26px 0;}
+  .fchip{font-size:13px;padding:8px 16px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:#3A4A41;}
+  .fchip.on{background:var(--forest);color:#fff;border-color:var(--forest);}
+  .filters select,.filters input{padding:9px 14px;border:1px solid var(--line);border-radius:3px;font-size:13.5px;background:var(--card);color:var(--ink);}
+  .filters input{min-width:200px;}
+  .fcount{font-size:13px;color:var(--muted);margin-left:auto;}
+  .page-head{padding:64px 0 30px;border-bottom:1px solid var(--line);}
+  .crumb{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .crumb a:hover{color:var(--forest);}
+  .cd-grid{display:flex;gap:56px;padding:46px 0 70px;}
+  .cd-main{flex:1.6;}
+  .cd-side{flex:1;}
+  .cd-main h2{font-family:var(--serif);font-weight:400;font-size:26px;margin:30px 0 12px;}
+  .cd-main h2:first-child{margin-top:0;}
+  .cd-main p{font-size:15px;color:#3E4B44;margin-bottom:14px;max-width:640px;}
+  .facts{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px;margin-bottom:20px;}
+  .facts h4{font-size:13px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;}
+  .fact{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--soft);font-size:14px;}
+  .fact:last-child{border-bottom:none;}
+  .fact .k{color:var(--muted);}
+  .fact .v{font-weight:600;text-align:right;}
+  .note{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:10px;}
+  .cd-tools a{display:block;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px 20px;margin-bottom:10px;font-size:14.5px;font-weight:600;color:var(--forest);}
+  .cd-tools a:hover{border-color:var(--sage);}
+  .cd-tools a span{display:block;font-weight:400;font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .tool-wrap{display:flex;gap:50px;padding:46px 0 70px;}
+  .tool-form{flex:1;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:30px;}
+  .tool-result{flex:1;}
+  .tf-row{margin-bottom:20px;}
+  .tf-row label{display:block;font-size:13px;font-weight:600;letter-spacing:.4px;margin-bottom:8px;}
+  .tf-row input,.tf-row select{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:3px;font-size:15px;background:#FDFDFB;color:var(--ink);}
+  .tf-row input:focus,.tf-row select:focus{outline:none;border-color:var(--sage);}
+  .tf-hint{font-size:12px;color:var(--muted);margin-top:5px;}
+  .res-big{background:var(--forest);color:#fff;border-radius:6px;padding:28px;margin-bottom:14px;}
+  .res-big .l{font-size:12.5px;letter-spacing:2px;opacity:.75;text-transform:uppercase;margin-bottom:6px;}
+  .res-big .v{font-family:var(--serif);font-size:38px;line-height:1.1;}
+  .res-big .s{font-size:13.5px;opacity:.8;margin-top:6px;}
+  .res-row{display:flex;justify-content:space-between;padding:13px 4px;border-bottom:1px solid var(--line);font-size:14.5px;}
+  .res-row .k{color:var(--muted);}
+  .res-row .v{font-weight:600;}
+  .verdict{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:6px;padding:22px;font-size:14.5px;line-height:1.65;}
+  .guide-list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:10px;}
+  .gcard{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:26px;display:block;transition:.2s;}
+  .gcard:hover{border-color:var(--sage);transform:translateY(-2px);}
+  .gcard .gt{font-size:11.5px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+  .gcard h3{font-family:var(--serif);font-weight:400;font-size:21px;margin-bottom:8px;line-height:1.3;}
+  .gcard p{font-size:13.5px;color:var(--muted);}
+  .article{max-width:700px;padding:46px 0 70px;}
+  .article h2{font-family:var(--serif);font-weight:400;font-size:24px;margin:28px 0 10px;}
+  .article p{font-size:15.5px;color:#37453D;margin-bottom:14px;}
+  .form-wrap{max-width:620px;margin:0 auto;padding:46px 0 70px;}
+  .form-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:34px;}
+  .price-line{display:flex;align-items:baseline;gap:10px;margin:16px 0 6px;}
+  .price-line .p{font-family:var(--serif);font-size:44px;color:var(--forest);}
+  .price-line .per{color:var(--muted);}
+  .tick-list{list-style:none;margin:18px 0 24px;}
+  .tick-list li{padding:8px 0 8px 30px;position:relative;font-size:14.5px;color:#37453D;}
+  .tick-list li::before{content:"";position:absolute;left:0;top:12px;width:16px;height:16px;background:var(--forest);border-radius:50%;}
+  .tick-list li::after{content:"";position:absolute;left:4.5px;top:16.5px;width:7px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg);}
+  .alert{padding:14px 18px;border-radius:6px;margin-bottom:20px;font-size:14.5px;}
+  .alert-success{background:#EAF4EE;border:1px solid #B9DBC7;color:#1E4D3B;}
+  .alert-error{background:#FBEDE8;border:1px solid #E6C3B4;color:#8A3B1E;}
+  .impact{background:var(--forest);color:#fff;padding:64px 0;}
+  .impact .eyebrow{color:var(--gold);}
+  .impact h2{font-family:var(--serif);font-weight:400;font-size:30px;max-width:560px;line-height:1.3;margin-bottom:14px;}
+  .impact p{color:rgba(255,255,255,.75);max-width:520px;font-size:15.5px;}
+  footer{background:#122A20;color:rgba(255,255,255,.65);padding:52px 24px 26px;}
+  .fgrid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:34px;margin-bottom:36px;}
+  .fgrid h5{color:#fff;font-size:13px;letter-spacing:2px;margin-bottom:14px;font-weight:600;}
+  .fgrid a{display:block;font-size:13.5px;padding:4px 0;color:rgba(255,255,255,.65);}
+  .fgrid a:hover{color:#fff;}
+  .flogo{font-family:var(--serif);font-size:24px;letter-spacing:5px;color:#fff;margin-bottom:12px;}
+  .flogo .dot{color:var(--gold);}
+  .fbottom{max-width:1140px;margin:0 auto;border-top:1px solid rgba(255,255,255,.14);padding-top:18px;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  @media(max-width:960px){
+    .cat-grid,.tool-grid,.dealer-grid{grid-template-columns:repeat(2,1fr);}
+    .steps{grid-template-columns:1fr;gap:26px;}
+    .hero-grid{flex-direction:column;gap:36px;}
+    .hero-right{display:none;}
+    .cd-grid,.tool-wrap{flex-direction:column;gap:26px;}
+    .fgrid{grid-template-columns:1fr 1fr;}
+    h1.display{font-size:38px;}
+  }
+  @media(max-width:680px){
+    .nav{display:none;position:absolute;top:58px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 24px 14px;align-items:stretch;}
+    .nav.open{display:flex;}
+    .nav a{padding:13px 0;border-bottom:1px solid var(--soft);}
+    .nav .cta{margin-top:10px;text-align:center;}
+    .burger{display:block;}
+    .cat-grid,.tool-grid,.dealer-grid,.guide-list{grid-template-columns:1fr;}
+    .hero{padding:56px 0 48px;}
+    .hero-stats{flex-wrap:wrap;gap:16px;}
+    .hstat{border-right:none;padding-right:0;margin-right:20px;}
+    .section{padding:52px 0;}
+    .fcount{margin-left:0;width:100%;}
+  }
+  {% block extra_css %}{% endblock %}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="logo" href="{% url 'home' %}">HARI<b>T</b><span class="dot">.</span></a>
+    <button class="burger" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+    <nav class="nav" id="nav">
+      <a href="{% url 'home' %}" {% if nav == 'home' %}class="active"{% endif %}>Home</a>
+      <a href="{% url 'solutions' %}" {% if nav == 'solutions' %}class="active"{% endif %}>Solutions</a>
+      <a href="{% url 'dealers' %}" {% if nav == 'dealers' %}class="active"{% endif %}>Dealers</a>
+      <a href="{% url 'tools' %}" {% if nav == 'tools' %}class="active"{% endif %}>Tools</a>
+      <a href="{% url 'learn' %}" {% if nav == 'learn' %}class="active"{% endif %}>Learn</a>
+      <a href="{% url 'list_business' %}" {% if nav == 'list' %}class="active"{% endif %}>List Your Business</a>
+      <a class="cta" href="{% url 'enquiry' %}">Get Quotes</a>
+    </nav>
+  </div>
+</header>
+
+{% if messages %}
+<div class="container" style="padding-top:20px">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer>
+  <div class="fgrid">
+    <div>
+      <div class="flogo">HARIT<span class="dot">.</span></div>
+      <p style="font-size:13.5px;line-height:1.7;max-width:300px;">The green energy directory for {{ site.region }}. Find trusted local dealers, use free planning tools, and make the switch with confidence.</p>
+    </div>
+    <div><h5>EXPLORE</h5><a href="{% url 'solutions' %}">Solutions</a><a href="{% url 'dealers' %}">Find Dealers</a><a href="{% url 'tools' %}">Free Tools</a><a href="{% url 'learn' %}">Guides</a></div>
+    <div><h5>POPULAR</h5><a href="{% url 'category' 'solar' %}">Rooftop Solar</a><a href="{% url 'category' 'rain' %}">Rainwater Harvesting</a><a href="{% url 'category' 'ev' %}">EV Charging</a><a href="{% url 'category' 'wind' %}">Terrace Wind</a></div>
+    <div><h5>CONNECT</h5><a href="{% url 'enquiry' %}">Get Quotes</a><a href="{% url 'list_business' %}">List Your Business</a><a href="{% url 'about' %}">About HARIT</a></div>
+  </div>
+  <div class="fbottom">
+    <span>© 2026 HARIT · {{ site.region }}, India</span>
+    <span>Estimates are indicative. Verify subsidies on official portals.</span>
+  </div>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>

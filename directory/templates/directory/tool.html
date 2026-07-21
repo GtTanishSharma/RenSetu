@@ -1,0 +1,136 @@
+{% extends "directory/base.html" %}
+{% load harit_extras %}
+{% block title %}{{ tool.name }} — HARIT{% endblock %}
+{% block content %}
+<div class="page-head"><div class="container">
+  <div class="crumb"><a href="{% url 'home' %}">Home</a> › <a href="{% url 'tools' %}">Tools</a> › {{ tool.name }}</div>
+  <h1 class="display" style="font-size:36px">{{ tool.name }}</h1>
+  <p class="lede" style="margin-top:10px">{{ tool.description }}</p>
+</div></div>
+<div class="container"><div class="tool-wrap">
+  <div class="tool-form">
+    {% if tool.slug == 'solarcalc' %}
+      <div class="tf-row"><label>Monthly electricity bill (₹)</label><input id="i_bill" type="number" value="3000" oninput="calcSolar()"><div class="tf-hint">Your average bill across the year</div></div>
+      <div class="tf-row"><label>Tariff (₹ per unit)</label><input id="i_tariff" type="number" value="8" step="0.5" oninput="calcSolar()"><div class="tf-hint">Delhi NCR domestic is typically ₹6–9</div></div>
+    {% elif tool.slug == 'sizer' %}
+      <div class="tf-row"><label>Free shadow-less roof area (sq ft)</label><input id="i_area" type="number" value="300" oninput="calcSizer()"><div class="tf-hint">Only count area clear of tanks & shade</div></div>
+    {% elif tool.slug == 'heatercalc' %}
+      <div class="tf-row"><label>People in the household</label><input id="i_people" type="number" value="4" oninput="calcHeater()"></div>
+      <div class="tf-row"><label>Tariff (₹ per unit)</label><input id="i_htariff" type="number" value="8" step="0.5" oninput="calcHeater()"></div>
+    {% elif tool.slug == 'raincalc' %}
+      <div class="tf-row"><label>Roof area (sq ft)</label><input id="i_rarea" type="number" value="1000" oninput="calcRain()"></div>
+      <div class="tf-row"><label>Annual rainfall (mm)</label><input id="i_rain" type="number" value="790" oninput="calcRain()"><div class="tf-hint">Delhi NCR averages ~790 mm</div></div>
+    {% elif tool.slug == 'evcalc' %}
+      <div class="tf-row"><label>Vehicle type</label><select id="i_vt" onchange="calcEV()"><option value="2w">Two-wheeler</option><option value="4w">Car</option></select></div>
+      <div class="tf-row"><label>Daily running (km)</label><input id="i_km" type="number" value="30" oninput="calcEV()"></div>
+      <div class="tf-row"><label>Petrol price (₹/litre)</label><input id="i_petrol" type="number" value="95" oninput="calcEV()"></div>
+      <div class="tf-row"><label>Electricity tariff (₹/unit)</label><input id="i_etariff" type="number" value="8" step="0.5" oninput="calcEV()"></div>
+    {% elif tool.slug == 'windcheck' %}
+      <div class="tf-row"><label>Your site is…</label><select id="i_site" onchange="calcWind()"><option value="colony">A rooftop in a built-up colony</option><option value="edge">A terrace at the edge of open land</option><option value="open">An open plot / farmhouse</option></select></div>
+      <div class="tf-row"><label>Trees around you sway…</label><select id="i_sway" onchange="calcWind()"><option value="rare">Rarely</option><option value="often">On most days</option><option value="always">Almost constantly</option></select></div>
+      <div class="tf-row"><label>Nearest taller obstruction</label><select id="i_obs" onchange="calcWind()"><option value="near">Within 30 m</option><option value="mid">30–100 m away</option><option value="far">Beyond 100 m</option></select></div>
+    {% elif tool.slug == 'carbon' %}
+      <div class="tf-row"><label>Monthly electricity (units)</label><input id="i_cu" type="number" value="350" oninput="calcCarbon()"></div>
+      <div class="tf-row"><label>Petrol per month (litres)</label><input id="i_cp" type="number" value="25" oninput="calcCarbon()"></div>
+      <div class="tf-row"><label>LPG cylinders per month</label><input id="i_cl" type="number" value="1" step="0.5" oninput="calcCarbon()"></div>
+    {% else %}
+      <p style="color:var(--muted)">This tool is coming soon.</p>
+    {% endif %}
+  </div>
+  <div class="tool-result" id="res"></div>
+</div></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const OWNER_WA="{{ site.owner_whatsapp }}";
+const WAICON='<svg class="wa-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2z"/></svg>';
+const $=s=>document.querySelector(s);
+function money(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+function wa(msg){return 'https://wa.me/'+OWNER_WA+'?text='+encodeURIComponent(msg);}
+
+function calcSolar(){
+  const bill=+($('#i_bill').value||0),tariff=+($('#i_tariff').value||8);
+  if(!bill||!tariff){$('#res').innerHTML='';return;}
+  const units=bill/tariff,daily=units/30;
+  let kw=Math.max(1,Math.round((daily/(4.5*0.8))*2)/2);
+  const costLo=kw*45000,costHi=kw*65000,cost=kw*55000;
+  const sub=Math.min(Math.min(kw,2)*30000+(kw>2?Math.min(kw-2,1)*18000:0),78000);
+  const net=cost-sub,gen=kw*4.5*30*0.8,saveM=gen*tariff,payback=net/(saveM*12);
+  const co2=gen*12*0.82,trees=Math.round(co2/20);
+  $('#res').innerHTML='<div class="res-big"><div class="l">Recommended system</div><div class="v">'+kw+' kW</div><div class="s">for ~'+Math.round(units)+' units/month usage</div></div>'+
+    '<div class="res-row"><span class="k">Estimated cost</span><span class="v">'+money(costLo)+' – '+money(costHi)+'</span></div>'+
+    '<div class="res-row"><span class="k">PM Surya Ghar subsidy*</span><span class="v">− '+money(sub)+'</span></div>'+
+    '<div class="res-row"><span class="k">Your net cost (approx.)</span><span class="v">'+money(net)+'</span></div>'+
+    '<div class="res-row"><span class="k">Monthly generation value</span><span class="v">'+money(saveM)+' (~'+Math.round(gen)+' units)</span></div>'+
+    '<div class="res-row"><span class="k">Payback</span><span class="v">~'+payback.toFixed(1)+' years</span></div>'+
+    '<div class="res-row"><span class="k">25-year net saving</span><span class="v">'+money(saveM*12*25-net)+'</span></div>'+
+    '<div class="res-row"><span class="k">CO₂ avoided / year</span><span class="v">'+Math.round(co2)+' kg ≈ '+trees+' trees</span></div>'+
+    '<div class="note" style="margin-top:12px">*Residential, via empanelled vendor; verify current rates on pmsuryaghar.gov.in.</div>'+
+    '<div style="margin-top:18px"><a class="btn btn-wa" href="'+wa("Hi HARIT! The solar calculator suggests a "+kw+" kW system for me. Please connect me with rooftop solar dealers.")+'" target="_blank">'+WAICON+' Get quotes for '+kw+' kW</a></div>';
+}
+function calcSizer(){
+  const a=+($('#i_area').value||0);if(!a){$('#res').innerHTML='';return;}
+  const kw=Math.max(0.5,Math.round((a/90)*2)/2),gen=kw*4.5*30*0.8;
+  $('#res').innerHTML='<div class="res-big"><div class="l">Your roof can hold about</div><div class="v">'+kw+' kW</div><div class="s">assuming ~90 sq ft per kW</div></div>'+
+    '<div class="res-row"><span class="k">Monthly generation</span><span class="v">~'+Math.round(gen)+' units</span></div>'+
+    '<div class="res-row"><span class="k">Yearly generation</span><span class="v">~'+Math.round(gen*12).toLocaleString('en-IN')+' units</span></div>'+
+    '<div class="note" style="margin-top:12px">Count only shade-free, structurally sound area. A site survey gives the exact layout.</div>';
+}
+function calcHeater(){
+  const p=+($('#i_people').value||0),t=+($('#i_htariff').value||8);if(!p){$('#res').innerHTML='';return;}
+  const lpdOpts=[100,150,200,300];let lpd=lpdOpts.find(x=>x>=p*25)||300;
+  const unitsYr=lpd*15,cost=lpd*200,saveYr=unitsYr*t;
+  $('#res').innerHTML='<div class="res-big"><div class="l">Right size for your home</div><div class="v">'+lpd+' LPD</div><div class="s">litres of hot water per day</div></div>'+
+    '<div class="res-row"><span class="k">Typical system cost</span><span class="v">'+money(cost*0.9)+' – '+money(cost*1.2)+'</span></div>'+
+    '<div class="res-row"><span class="k">Electricity saved / year</span><span class="v">~'+unitsYr+' units</span></div>'+
+    '<div class="res-row"><span class="k">Savings / year</span><span class="v">'+money(saveYr)+'</span></div>'+
+    '<div class="res-row"><span class="k">Payback</span><span class="v">~'+(cost/saveYr).toFixed(1)+' years</span></div>'+
+    '<div class="note" style="margin-top:12px">ETC systems perform well in NCR winters. Savings concentrate in Oct–Mar geyser season.</div>';
+}
+function calcRain(){
+  const a=+($('#i_rarea').value||0),r=+($('#i_rain').value||790);if(!a){$('#res').innerHTML='';return;}
+  const m2=a*0.0929,litres=m2*r*0.8,tankers=litres/5000;
+  $('#res').innerHTML='<div class="res-big"><div class="l">Your roof can harvest</div><div class="v">'+Math.round(litres).toLocaleString('en-IN')+' L</div><div class="s">per year at '+r+' mm rainfall</div></div>'+
+    '<div class="res-row"><span class="k">That\'s about</span><span class="v">'+tankers.toFixed(1)+' water tankers</span></div>'+
+    '<div class="res-row"><span class="k">Daily average</span><span class="v">'+Math.round(litres/365)+' L/day</span></div>'+
+    '<div class="note" style="margin-top:12px">Assumes 80% runoff capture. Send it to a recharge pit, or store what you\'ll reuse.</div>';
+}
+function calcEV(){
+  const vt=$('#i_vt').value,km=+($('#i_km').value||0),pp=+($('#i_petrol').value||95),et=+($('#i_etariff').value||8);
+  if(!km){$('#res').innerHTML='';return;}
+  const mil=vt==='2w'?45:15,kpk=vt==='2w'?0.033:0.15,mp=km*30/mil*pp,me=km*30*kpk*et,sv=mp-me;
+  $('#res').innerHTML='<div class="res-big"><div class="l">You\'d save about</div><div class="v">'+money(sv)+'<span style="font-size:18px">/month</span></div><div class="s">'+money(sv*12)+' a year on running cost</div></div>'+
+    '<div class="res-row"><span class="k">Petrol cost / month</span><span class="v">'+money(mp)+'</span></div>'+
+    '<div class="res-row"><span class="k">EV charging cost / month</span><span class="v">'+money(me)+'</span></div>'+
+    '<div class="res-row"><span class="k">Cost per km — petrol</span><span class="v">₹'+(pp/mil).toFixed(2)+'</span></div>'+
+    '<div class="res-row"><span class="k">Cost per km — EV</span><span class="v">₹'+(kpk*et).toFixed(2)+'</span></div>'+
+    '<div class="note" style="margin-top:12px">Running cost only — excludes purchase price and battery life.</div>';
+}
+function calcWind(){
+  const s=$('#i_site').value,w=$('#i_sway').value,o=$('#i_obs').value;let score=0;
+  score+=s==='open'?2:s==='edge'?1:0; score+=w==='always'?2:w==='often'?1:0; score+=o==='far'?2:o==='mid'?1:0;
+  let verdict,color;
+  if(score>=5){verdict="<b>Promising site.</b> Your answers suggest genuinely usable wind. Next step: ask a dealer for a month of wind logging before you buy — real data beats rules of thumb.";color="#1E4D3B";}
+  else if(score>=3){verdict="<b>Marginal.</b> Wind may contribute, but a turbine alone will likely disappoint. Consider a small solar-wind hybrid — or simply put the budget into more solar, which will out-earn it here.";color="#B8934A";}
+  else{verdict="<b>Not recommended.</b> A built-up, sheltered site starves a turbine — this is physics, not pessimism. Rooftop solar will deliver several times the energy per rupee at your location.";color="#B4552D";}
+  $('#res').innerHTML='<div class="verdict" style="border-left-color:'+color+'">'+verdict+'</div><div style="margin-top:16px"><a class="btn btn-ghost" href="/solutions/solar/">See rooftop solar instead →</a></div>';
+}
+function calcCarbon(){
+  const u=+($('#i_cu').value||0),p=+($('#i_cp').value||0),l=+($('#i_cl').value||0);
+  const m=u*0.82+p*2.3+l*40,y=m*12,trees=Math.round(y/20);
+  $('#res').innerHTML='<div class="res-big"><div class="l">Your household emits about</div><div class="v">'+(y/1000).toFixed(1)+' t</div><div class="s">of CO₂ per year ('+Math.round(m)+' kg/month)</div></div>'+
+    '<div class="res-row"><span class="k">From electricity</span><span class="v">'+Math.round(u*0.82*12)+' kg/yr</span></div>'+
+    '<div class="res-row"><span class="k">From petrol</span><span class="v">'+Math.round(p*2.3*12)+' kg/yr</span></div>'+
+    '<div class="res-row"><span class="k">From LPG</span><span class="v">'+Math.round(l*40*12)+' kg/yr</span></div>'+
+    '<div class="res-row"><span class="k">Trees to offset it</span><span class="v">~'+trees+' trees</span></div>'+
+    '<div class="note" style="margin-top:12px">Rooftop solar typically wipes out the electricity share — the biggest slice for most homes.</div>';
+}
+// auto-run on load
+(function(){
+  const slug="{{ tool.slug }}";
+  const fn={solarcalc:calcSolar,sizer:calcSizer,heatercalc:calcHeater,raincalc:calcRain,evcalc:calcEV,windcheck:calcWind,carbon:calcCarbon}[slug];
+  if(fn)fn();
+})();
+</script>
+{% endblock %}

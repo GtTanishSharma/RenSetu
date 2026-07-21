@@ -1,0 +1,15 @@
+{% extends "directory/base.html" %}
+{% block title %}{{ guide.title }} — HARIT{% endblock %}
+{% block content %}
+<div class="page-head"><div class="container">
+  <div class="crumb"><a href="{% url 'home' %}">Home</a> › <a href="{% url 'learn' %}">Learn</a> › {{ guide.tag }}</div>
+  <h1 class="display" style="font-size:34px;max-width:760px">{{ guide.title }}</h1>
+</div></div>
+<div class="container"><div class="article">
+  {% for p in guide.paragraphs %}<p>{{ p }}</p>{% endfor %}
+  <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="btn btn-forest" href="{% url 'dealers' %}">Find a dealer</a>
+    <a class="btn btn-ghost" href="{% url 'tools' %}">Run the numbers</a>
+  </div>
+</div></div>
+{% endblock %}

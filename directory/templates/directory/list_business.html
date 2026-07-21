@@ -1,0 +1,33 @@
+{% extends "directory/base.html" %}
+{% block title %}List Your Business — HARIT{% endblock %}
+{% block content %}
+<div class="page-head"><div class="container">
+  <div class="crumb"><a href="{% url 'home' %}">Home</a> › List Your Business</div>
+  <h1 class="display" style="font-size:40px">Reach {{ site.region }}'s green-minded customers</h1>
+  <p class="lede" style="margin-top:10px">A listing on HARIT puts your business in front of homeowners who are already researching — with a direct line to your phone.</p>
+</div></div>
+<div class="form-wrap"><div class="form-card">
+  <div class="eyebrow">Simple, honest pricing</div>
+  <div class="price-line"><span class="p">{{ site.listing_price }}</span><span class="per">/ month · cancel anytime</span></div>
+  <ul class="tick-list">
+    <li>Your business listed with direct <b>Call</b> and <b>WhatsApp</b> buttons</li>
+    <li>Listed under every category you serve</li>
+    <li>Enquiries from our tools &amp; quote form routed to you</li>
+    <li>"Verified" badge after document check</li>
+    <li>No commissions, no lead fees — the customer is yours</li>
+  </ul>
+  <form method="post">
+    {% csrf_token %}
+    <div class="tf-row"><label>Business name</label><input name="business_name" required placeholder="Your business name"></div>
+    <div class="tf-row"><label>Your name</label><input name="contact_name" placeholder="Contact person"></div>
+    <div class="tf-row"><label>Phone / WhatsApp</label><input name="phone" required placeholder="+91 …"></div>
+    <div class="tf-row"><label>City</label>
+      <select name="city">{% for ci in cities %}<option>{{ ci }}</option>{% endfor %}</select>
+    </div>
+    <div class="tf-row"><label>Services you offer</label><input name="services" placeholder="e.g. rooftop solar, EV charging"></div>
+    <div class="tf-row"><label>Anything else? (optional)</label><input name="message" placeholder="Tell us about your business"></div>
+    <button type="submit" class="btn btn-forest" style="width:100%;font-size:15px;padding:16px">Apply to get listed</button>
+    <div class="note" style="text-align:center;margin-top:12px">We list genuine, service-ready suppliers only — every listing is reviewed.</div>
+  </form>
+</div></div>
+{% endblock %}

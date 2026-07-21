@@ -1,0 +1,14 @@
+{% extends "directory/base.html" %}
+{% block title %}Learn — HARIT{% endblock %}
+{% block content %}
+<div class="page-head"><div class="container">
+  <div class="crumb"><a href="{% url 'home' %}">Home</a> › Learn</div>
+  <h1 class="display" style="font-size:40px">Guides, minus the jargon</h1>
+  <p class="lede" style="margin-top:10px">Short, honest reads — including the caveats dealers won't lead with.</p>
+</div></div>
+<div class="section" style="padding-top:34px"><div class="container"><div class="guide-list">
+  {% for g in guides %}
+  <a class="gcard" href="{% url 'guide' g.slug %}"><div class="gt">{{ g.tag }}</div><h3>{{ g.title }}</h3><p>{{ g.paragraphs.0|truncatechars:120 }}</p></a>
+  {% endfor %}
+</div></div></div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "directory/base.html" %}
+{% block title %}Free Tools — HARIT{% endblock %}
+{% block content %}
+<div class="page-head"><div class="container">
+  <div class="crumb"><a href="{% url 'home' %}">Home</a> › Tools</div>
+  <h1 class="display" style="font-size:40px">Free planning tools</h1>
+  <p class="lede" style="margin-top:10px">Two minutes each. Know your numbers before any salesperson does.</p>
+</div></div>
+<div class="section" style="padding-top:34px"><div class="container"><div class="tool-grid" style="margin-top:0">
+  {% for t in tools %}
+  <a class="tool-card" href="{% url 'tool' t.slug %}"><div class="tico">{% if t.category %}{{ t.category.name }}{% else %}General{% endif %}</div><h3>{{ t.name }}</h3><p>{{ t.description }}</p></a>
+  {% endfor %}
+</div></div></div>
+{% endblock %}

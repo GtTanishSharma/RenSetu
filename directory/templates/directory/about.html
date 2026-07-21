@@ -1,0 +1,15 @@
+{% extends "directory/base.html" %}
+{% block title %}About — HARIT{% endblock %}
+{% block content %}
+<div class="page-head"><div class="container">
+  <div class="crumb"><a href="{% url 'home' %}">Home</a> › About</div>
+  <h1 class="display" style="font-size:40px">Why HARIT exists</h1>
+</div></div>
+<div class="container"><div class="article">
+  <p>Going green in India has a strange problem: the technology is ready, the subsidies are real, the savings are proven — but finding a trustworthy local supplier still means asking around, guessing, and hoping.</p>
+  <p>HARIT is our answer: one calm, honest place that explains each solution in plain words, lets you run your own numbers with free tools, and connects you to real dealers in your city. No commissions on your purchase, no pay-to-rank listings pretending to be recommendations, and no pressure.</p>
+  <p>We keep the site alive with a token listing fee from suppliers — enough to cover the hosting, never enough to bend our honesty. If a solution isn't right for your site (looking at you, rooftop wind in a crowded colony), we'll say so.</p>
+  <h2>Made in Faridabad, for all of {{ site.region }}.</h2>
+  <p>Start with the <a href="{% url 'tools' %}" style="color:var(--forest);text-decoration:underline">tools</a>, browse the <a href="{% url 'dealers' %}" style="color:var(--forest);text-decoration:underline">dealers</a>, or just <a href="{% url 'enquiry' %}" style="color:var(--forest);text-decoration:underline">send us an enquiry</a> — we'll take it from there.</p>
+</div></div>
+{% endblock %}
