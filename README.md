@@ -1,4 +1,4 @@
-# HARIT — Green Energy Directory (Django)
+# RenSetu — Green Energy Directory (Django)
 
 A full directory site: rooftop solar, wind, rainwater, EV, biogas and more.
 Dealers, tools, guides and enquiries are all managed from the **admin panel** —

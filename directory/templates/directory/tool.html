@@ -1,6 +1,6 @@
 {% extends "directory/base.html" %}
 {% load harit_extras %}
-{% block title %}{{ tool.name }} — HARIT{% endblock %}
+{% block title %}{{ tool.name }} — RenSetu{% endblock %}
 {% block content %}
 <div class="page-head"><div class="container">
   <div class="crumb"><a href="{% url 'home' %}">Home</a> › <a href="{% url 'tools' %}">Tools</a> › {{ tool.name }}</div>
@@ -67,7 +67,7 @@ function calcSolar(){
     '<div class="res-row"><span class="k">25-year net saving</span><span class="v">'+money(saveM*12*25-net)+'</span></div>'+
     '<div class="res-row"><span class="k">CO₂ avoided / year</span><span class="v">'+Math.round(co2)+' kg ≈ '+trees+' trees</span></div>'+
     '<div class="note" style="margin-top:12px">*Residential, via empanelled vendor; verify current rates on pmsuryaghar.gov.in.</div>'+
-    '<div style="margin-top:18px"><a class="btn btn-wa" href="'+wa("Hi HARIT! The solar calculator suggests a "+kw+" kW system for me. Please connect me with rooftop solar dealers.")+'" target="_blank">'+WAICON+' Get quotes for '+kw+' kW</a></div>';
+    '<div style="margin-top:18px"><a class="btn btn-wa" href="'+wa("Hi RenSetu! The solar calculator suggests a "+kw+" kW system for me. Please connect me with rooftop solar dealers.")+'" target="_blank">'+WAICON+' Get quotes for '+kw+' kW</a></div>';
 }
 function calcSizer(){
   const a=+($('#i_area').value||0);if(!a){$('#res').innerHTML='';return;}

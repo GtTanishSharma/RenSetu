@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}HARIT — The Green Energy Directory · {{ site.region }}{% endblock %}</title>
+<title>{% block title %}RenSetu — The Green Energy Directory · {{ site.region }}{% endblock %}</title>
 <meta name="description" content="{% block description %}Find trusted dealers for rooftop solar, wind, rainwater harvesting, EV charging and more across {{ site.region }}. Free tools, honest guides, verified suppliers.{% endblock %}">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -193,7 +193,7 @@
 <body>
 <header>
   <div class="bar">
-    <a class="logo" href="{% url 'home' %}">HARI<b>T</b><span class="dot">.</span></a>
+    <a class="logo" href="{% url 'home' %}">Ren<b>Setu</b><span class="dot">.</span></a>
     <button class="burger" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
     <nav class="nav" id="nav">
       <a href="{% url 'home' %}" {% if nav == 'home' %}class="active"{% endif %}>Home</a>
@@ -220,15 +220,15 @@
 <footer>
   <div class="fgrid">
     <div>
-      <div class="flogo">HARIT<span class="dot">.</span></div>
+      <div class="flogo">RenSetu<span class="dot">.</span></div>
       <p style="font-size:13.5px;line-height:1.7;max-width:300px;">The green energy directory for {{ site.region }}. Find trusted local dealers, use free planning tools, and make the switch with confidence.</p>
     </div>
     <div><h5>EXPLORE</h5><a href="{% url 'solutions' %}">Solutions</a><a href="{% url 'dealers' %}">Find Dealers</a><a href="{% url 'tools' %}">Free Tools</a><a href="{% url 'learn' %}">Guides</a></div>
     <div><h5>POPULAR</h5><a href="{% url 'category' 'solar' %}">Rooftop Solar</a><a href="{% url 'category' 'rain' %}">Rainwater Harvesting</a><a href="{% url 'category' 'ev' %}">EV Charging</a><a href="{% url 'category' 'wind' %}">Terrace Wind</a></div>
-    <div><h5>CONNECT</h5><a href="{% url 'enquiry' %}">Get Quotes</a><a href="{% url 'list_business' %}">List Your Business</a><a href="{% url 'about' %}">About HARIT</a></div>
+    <div><h5>CONNECT</h5><a href="{% url 'enquiry' %}">Get Quotes</a><a href="{% url 'list_business' %}">List Your Business</a><a href="{% url 'about' %}">About RenSetu</a></div>
   </div>
   <div class="fbottom">
-    <span>© 2026 HARIT · {{ site.region }}, India</span>
+    <span>© 2026 RenSetu · {{ site.region }}, India</span>
     <span>Estimates are indicative. Verify subsidies on official portals.</span>
   </div>
 </footer>

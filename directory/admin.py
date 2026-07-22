@@ -4,8 +4,8 @@ from .models import (
     Category, Dealer, Enquiry, Guide, SiteSetting, SupplierApplication, Tool,
 )
 
-admin.site.site_header = "HARIT Admin"
-admin.site.site_title = "HARIT Admin"
+admin.site.site_header = "RenSetu Admin"
+admin.site.site_title = "RenSetu Admin"
 admin.site.index_title = "Manage your green energy directory"
 
 

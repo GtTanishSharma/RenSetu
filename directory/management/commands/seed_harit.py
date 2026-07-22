@@ -89,7 +89,7 @@ GUIDES = [
 
 
 class Command(BaseCommand):
-    help = "Load HARIT starter content (categories, dealers, tools, guides)."
+    help = "Load RenSetu starter content (categories, dealers, tools, guides)."
 
     def handle(self, *args, **opts):
         SiteSetting.get()
@@ -129,4 +129,4 @@ class Command(BaseCommand):
             d.categories.set([cat_objs[s] for s in cats])
         self.stdout.write(f"Dealers: {Dealer.objects.count()}")
 
-        self.stdout.write(self.style.SUCCESS("HARIT content seeded."))
+        self.stdout.write(self.style.SUCCESS("RenSetu content seeded."))

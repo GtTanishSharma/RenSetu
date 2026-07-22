@@ -15,7 +15,7 @@ class SiteSetting(models.Model):
         verbose_name_plural = "Site settings"
 
     def __str__(self):
-        return f"HARIT settings ({self.region})"
+        return f"RenSetu settings ({self.region})"
 
     @classmethod
     def get(cls):
