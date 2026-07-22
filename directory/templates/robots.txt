@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /harit-admin/
+
+Sitemap: https://rensetu.in/sitemap.xml

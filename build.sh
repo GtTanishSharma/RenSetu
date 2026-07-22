@@ -5,3 +5,4 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 python manage.py seed_harit
 python manage.py createsuperuser --noinput || true
+python manage.py shell -c "from django.contrib.sites.models import Site; Site.objects.update_or_create(id=1, defaults={'domain': 'rensetu.in', 'name': 'RenSetu'})"
