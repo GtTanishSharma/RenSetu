@@ -1,5 +1,20 @@
 {% extends "directory/base.html" %}
 {% load harit_extras %}
+{% block description %}RenSetu is a free green energy directory for {{ site.region }}. Compare rooftop solar, rainwater harvesting, EV charging and more, use free calculators, and connect with trusted local dealers.{% endblock %}
+{% block title_plain %}RenSetu — Green Energy Dealers & Free Solar Tools in {{ site.region }}{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "RenSetu",
+  "url": "https://rensetu.in/",
+  "description": "Green energy directory for {{ site.region }} covering rooftop solar, rainwater harvesting, EV charging and more.",
+  "areaServed": {"@type": "Place", "name": "{{ site.region }}, India"},
+  "knowsAbout": [{% for c in categories %}"{{ c.name }}"{% if not forloop.last %}, {% endif %}{% endfor %}]
+}
+</script>
+{% endblock %}
 {% block content %}
 <section class="hero"><div class="container hero-grid">
   <div class="hero-left">

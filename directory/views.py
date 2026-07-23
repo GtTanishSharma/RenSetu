@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import (
-    Category, Dealer, Enquiry, Guide, SupplierApplication, Tool,
+    FAQ, Category, Dealer, Enquiry, Guide, SupplierApplication, Tool,
 )
 
 
@@ -30,7 +30,15 @@ def solutions(request):
 def category_detail(request, slug):
     cat = get_object_or_404(Category, slug=slug, is_active=True)
     dealers = cat.dealers.filter(is_active=True)
-    return render(request, "directory/category.html", {"cat": cat, "dealers": dealers, "nav": "solutions"})
+    ctx = {
+        "cat": cat,
+        "dealers": dealers,
+        "faqs": cat.faqs.filter(is_active=True),
+        "other_cats": Category.objects.filter(is_active=True).exclude(pk=cat.pk)[:4],
+        "guides": Guide.objects.filter(is_active=True)[:3],
+        "nav": "solutions",
+    }
+    return render(request, "directory/category.html", ctx)
 
 
 def dealers(request):
@@ -76,7 +84,9 @@ def learn(request):
 
 def guide_detail(request, slug):
     guide = get_object_or_404(Guide, slug=slug, is_active=True)
-    return render(request, "directory/guide.html", {"guide": guide, "nav": "learn"})
+    related = Guide.objects.filter(is_active=True).exclude(pk=guide.pk)[:3]
+    return render(request, "directory/guide.html",
+                  {"guide": guide, "related": related, "nav": "learn"})
 
 
 def enquiry(request):
@@ -116,5 +126,49 @@ def list_business(request):
     return render(request, "directory/list_business.html", {"categories": _active_categories(), "cities": ["Faridabad", "Delhi", "Gurugram", "Noida", "Ghaziabad"], "nav": "list"})
 
 
+CITY_SLUGS = {
+    "faridabad": "Faridabad",
+    "delhi": "Delhi",
+    "gurugram": "Gurugram",
+    "noida": "Noida",
+    "ghaziabad": "Ghaziabad",
+}
+
+
+def city_detail(request, slug):
+    from django.http import Http404
+    name = CITY_SLUGS.get(slug)
+    if not name:
+        raise Http404("Unknown city")
+    dealers = (
+        Dealer.objects.filter(is_active=True, city__iexact=name)
+        .prefetch_related("categories")
+    )
+    cats = Category.objects.filter(is_active=True, dealers__in=dealers).distinct()
+    ctx = {
+        "city": name,
+        "city_slug": slug,
+        "dealers": dealers,
+        "categories": cats,
+        "all_categories": _active_categories(),
+        "tools": Tool.objects.filter(is_active=True)[:3],
+        "nav": "dealers",
+    }
+    return render(request, "directory/city.html", ctx)
+
+
 def about(request):
-    return render(request, "directory/about.html", {"nav": ""})
+    return render(request, "directory/about.html",
+                  {"faqs": FAQ.objects.filter(is_active=True, category__isnull=True),
+                   "nav": ""})
+
+
+def custom_404(request, exception=None):
+    """Friendly 404 that keeps people on the site instead of bouncing."""
+    from django.shortcuts import render as _render
+    ctx = {
+        "categories": _active_categories()[:4],
+        "tools": Tool.objects.filter(is_active=True)[:3],
+        "nav": "",
+    }
+    return _render(request, "directory/404.html", ctx, status=404)

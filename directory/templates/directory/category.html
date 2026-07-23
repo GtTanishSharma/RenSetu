@@ -1,6 +1,44 @@
 {% extends "directory/base.html" %}
 {% load harit_extras %}
 {% block title %}{{ cat.name }} — RenSetu{% endblock %}
+{% block description %}{{ cat.name }} in {{ site.region }}: typical cost {{ cat.cost|default:"varies" }}, subsidy {{ cat.subsidy|default:"varies" }}, payback {{ cat.payback|default:"varies" }}. Compare trusted local dealers and get free quotes.{% endblock %}
+{% block title_plain %}{{ cat.name }} in {{ site.region }} — Cost, Subsidy & Dealers{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://rensetu.in/"},
+    {"@type":"ListItem","position":2,"name":"Solutions","item":"https://rensetu.in/solutions/"},
+    {"@type":"ListItem","position":3,"name":"{{ cat.name }}","item":"https://rensetu.in/solutions/{{ cat.slug }}/"}
+  ]
+}
+</script>
+{% if faqs %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{% for f in faqs %}
+    {"@type":"Question","name":"{{ f.question|escapejs }}","acceptedAnswer":{"@type":"Answer","text":"{{ f.answer|escapejs }}"}}{% if not forloop.last %},{% endif %}{% endfor %}
+  ]
+}
+</script>
+{% endif %}
+{% if dealers %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "{{ cat.name }} dealers in {{ site.region }}",
+  "itemListElement": [{% for d in dealers %}
+    {"@type":"ListItem","position":{{ forloop.counter }},"item":{"@type":"LocalBusiness","name":"{{ d.name|escapejs }}","telephone":"{{ d.phone }}","address":{"@type":"PostalAddress","addressLocality":"{{ d.city }}","streetAddress":"{{ d.area|escapejs }}","addressCountry":"IN"}}}{% if not forloop.last %},{% endif %}{% endfor %}
+  ]
+}
+</script>
+{% endif %}
+{% endblock %}
 {% block content %}
 <div class="page-head"><div class="container">
   <div class="crumb"><a href="{% url 'home' %}">Home</a> › <a href="{% url 'solutions' %}">Solutions</a> › {{ cat.name }}</div>
@@ -15,11 +53,35 @@
     <h2>Plan it with our tools</h2>
     <div class="cd-tools">{% for t in cat.tools.all %}{% if t.is_active %}<a href="{% url 'tool' t.slug %}">{{ t.name }}<span>{{ t.description }}</span></a>{% endif %}{% endfor %}</div>
     {% endif %}
+    {% if faqs %}
+    <h2 style="margin-top:36px">Common questions</h2>
+    <div class="faq-list">
+      {% for f in faqs %}
+      <details class="faq"{% if forloop.first %} open{% endif %}>
+        <summary>{{ f.question }}</summary>
+        <p>{{ f.answer }}</p>
+      </details>
+      {% endfor %}
+    </div>
+    {% endif %}
+
     <h2 style="margin-top:36px">Dealers for {{ cat.name|lower }}</h2>
     {% if dealers %}
       <div class="dealer-grid" style="grid-template-columns:1fr;gap:12px">{% for d in dealers %}{% include "directory/_dealer.html" %}{% endfor %}</div>
     {% else %}
       <p style="color:var(--muted);font-size:14px">Dealers for this category are being onboarded. <a href="{% url 'enquiry' %}" style="color:var(--forest);text-decoration:underline">Send an enquiry</a> and we'll connect you.</p>
+    {% endif %}
+    {% if guides %}
+    <h2 style="margin-top:40px">Read before you buy</h2>
+    <div class="cd-tools">
+      {% for g in guides %}<a href="{% url 'guide' g.slug %}">{{ g.title }}<span>{{ g.tag }}</span></a>{% endfor %}
+    </div>
+    {% endif %}
+    {% if other_cats %}
+    <h2 style="margin-top:36px">Other green upgrades</h2>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+      {% for c in other_cats %}<a class="fchip" href="{% url 'category' c.slug %}">{{ c.name }}</a>{% endfor %}
+    </div>
     {% endif %}
   </div>
   <div class="cd-side">

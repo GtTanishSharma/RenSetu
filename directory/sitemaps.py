@@ -5,6 +5,7 @@ from .models import Category, Guide, Tool
 
 
 class StaticSitemap(Sitemap):
+    protocol = "https"
     priority = 0.8
     changefreq = "weekly"
 
@@ -16,17 +17,22 @@ class StaticSitemap(Sitemap):
 
 
 class CategorySitemap(Sitemap):
+    protocol = "https"
     priority = 0.9
     changefreq = "monthly"
 
     def items(self):
         return Category.objects.filter(is_active=True)
 
+    def lastmod(self, obj):
+        return obj.updated_at
+
     def location(self, obj):
         return reverse("category", args=[obj.slug])
 
 
 class ToolSitemap(Sitemap):
+    protocol = "https"
     priority = 0.7
     changefreq = "monthly"
 
@@ -38,11 +44,27 @@ class ToolSitemap(Sitemap):
 
 
 class GuideSitemap(Sitemap):
+    protocol = "https"
     priority = 0.7
     changefreq = "monthly"
 
     def items(self):
         return Guide.objects.filter(is_active=True)
 
+    def lastmod(self, obj):
+        return obj.updated_at
+
     def location(self, obj):
         return reverse("guide", args=[obj.slug])
+
+class CitySitemap(Sitemap):
+    protocol = "https"
+    priority = 0.9
+    changefreq = "weekly"
+
+    def items(self):
+        from .views import CITY_SLUGS
+        return list(CITY_SLUGS.keys())
+
+    def location(self, item):
+        return reverse("city", args=[item])

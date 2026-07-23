@@ -2,4 +2,17 @@ User-agent: *
 Allow: /
 Disallow: /harit-admin/
 
+# AI crawlers are welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://rensetu.in/sitemap.xml

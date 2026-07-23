@@ -1,6 +1,35 @@
 {% extends "directory/base.html" %}
 {% load harit_extras %}
 {% block title %}{{ tool.name }} — RenSetu{% endblock %}
+{% block description %}{{ tool.description }} Free {{ tool.name|lower }} for homes in {{ site.region }} — instant results, no signup.{% endblock %}
+{% block title_plain %}{{ tool.name }} — Free Tool for {{ site.region }}{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "{{ tool.name|escapejs }}",
+  "description": "{{ tool.description|escapejs }}",
+  "totalTime": "PT2M",
+  "step": [
+    {"@type":"HowToStep","position":1,"name":"Enter your details","text":"Fill in the fields on the left with your own numbers."},
+    {"@type":"HowToStep","position":2,"name":"Read your result","text":"Results update instantly as you type, with no signup required."},
+    {"@type":"HowToStep","position":3,"name":"Compare dealers","text":"Use the result to compare quotes from listed dealers in {{ site.region }}."}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://rensetu.in/"},
+    {"@type":"ListItem","position":2,"name":"Tools","item":"https://rensetu.in/tools/"},
+    {"@type":"ListItem","position":3,"name":"{{ tool.name|escapejs }}","item":"https://rensetu.in/tools/{{ tool.slug }}/"}
+  ]
+}
+</script>
+{% endblock %}
 {% block content %}
 <div class="page-head"><div class="container">
   <div class="crumb"><a href="{% url 'home' %}">Home</a> › <a href="{% url 'tools' %}">Tools</a> › {{ tool.name }}</div>

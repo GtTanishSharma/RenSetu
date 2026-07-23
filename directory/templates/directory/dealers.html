@@ -1,6 +1,8 @@
 {% extends "directory/base.html" %}
 {% load harit_extras %}
 {% block title %}Find a Dealer — RenSetu{% endblock %}
+{% block description %}Browse {{ count }} trusted green energy dealers across {{ site.region }} — rooftop solar, rainwater harvesting, EV charging and more. Call or WhatsApp directly, free for homeowners.{% endblock %}
+{% block title_plain %}Green Energy Dealers in {{ site.region }} — Verified Local Suppliers{% endblock %}
 {% block content %}
 <div class="page-head"><div class="container">
   <div class="crumb"><a href="{% url 'home' %}">Home</a> › Dealers</div>
@@ -26,6 +28,16 @@
   {% else %}
     <p style="color:var(--muted)">No dealers match those filters yet. <a href="{% url 'enquiry' %}" style="color:var(--forest);text-decoration:underline">Send an enquiry</a> and we'll find you one.</p>
   {% endif %}
+  <div style="margin-top:34px">
+    <div class="eyebrow">Browse by city</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+      <a class="fchip" href="{% url 'city' 'faridabad' %}">Faridabad</a>
+      <a class="fchip" href="{% url 'city' 'delhi' %}">Delhi</a>
+      <a class="fchip" href="{% url 'city' 'gurugram' %}">Gurugram</a>
+      <a class="fchip" href="{% url 'city' 'noida' %}">Noida</a>
+      <a class="fchip" href="{% url 'city' 'ghaziabad' %}">Ghaziabad</a>
+    </div>
+  </div>
   <div style="margin-top:40px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
     <div><b>Are you a green-energy supplier?</b><div style="font-size:14px;color:var(--muted)">Get listed and reach customers across {{ site.region }}.</div></div>
     <a class="btn btn-forest" href="{% url 'list_business' %}">List your business →</a>

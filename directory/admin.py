@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import (
-    Category, Dealer, Enquiry, Guide, SiteSetting, SupplierApplication, Tool,
+    FAQ, Category, Dealer, Enquiry, Guide, SiteSetting, SupplierApplication, Tool,
 )
 
 admin.site.site_header = "RenSetu Admin"
@@ -69,3 +69,11 @@ class SupplierApplicationAdmin(admin.ModelAdmin):
     list_filter = ("is_processed", "city")
     search_fields = ("business_name", "services", "message")
     readonly_fields = ("created_at",)
+
+
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ("question", "category", "order", "is_active")
+    list_editable = ("order", "is_active")
+    list_filter = ("is_active", "category")
+    search_fields = ("question", "answer")

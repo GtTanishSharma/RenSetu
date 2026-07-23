@@ -43,6 +43,7 @@ class Category(models.Model):
     subsidy = models.CharField(max_length=120, blank=True)
     saving = models.CharField(max_length=80, blank=True)
     payback = models.CharField(max_length=80, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -98,6 +99,7 @@ class Guide(models.Model):
     body = models.TextField(help_text="Separate paragraphs with a blank line")
     order = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["order", "-id"]
@@ -142,3 +144,28 @@ class SupplierApplication(models.Model):
 
     def __str__(self):
         return self.business_name
+
+
+class FAQ(models.Model):
+    """Question/answer pairs shown on category pages and emitted as FAQPage schema.
+
+    These target the long, question-shaped searches that trigger AI answers.
+    """
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="faqs",
+        null=True, blank=True,
+        help_text="Leave blank for a general FAQ shown on the About page.",
+    )
+    question = models.CharField(max_length=250)
+    answer = models.TextField(help_text="Answer directly in the first sentence, then add detail.")
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "FAQ"
+        verbose_name_plural = "FAQs"
+        ordering = ["order", "id"]
+
+    def __str__(self):
+        return self.question

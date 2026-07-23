@@ -1,0 +1,83 @@
+{% extends "directory/base.html" %}
+{% load harit_extras %}
+{% block title %}Green Energy Dealers in {{ city }} — Solar, Rainwater &amp; EV | RenSetu{% endblock %}
+{% block title_plain %}Green Energy Dealers in {{ city }}{% endblock %}
+{% block description %}Find trusted rooftop solar, rainwater harvesting and EV charging dealers in {{ city }}. Compare costs and subsidies, use free calculators, and call or WhatsApp suppliers directly.{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://rensetu.in/"},
+    {"@type":"ListItem","position":2,"name":"Dealers","item":"https://rensetu.in/dealers/"},
+    {"@type":"ListItem","position":3,"name":"{{ city }}","item":"https://rensetu.in/dealers/{{ city_slug }}/"}
+  ]
+}
+</script>
+{% if dealers %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Green energy dealers in {{ city }}",
+  "itemListElement": [{% for d in dealers %}
+    {"@type":"ListItem","position":{{ forloop.counter }},"item":{"@type":"LocalBusiness","name":"{{ d.name|escapejs }}","telephone":"{{ d.phone }}","address":{"@type":"PostalAddress","addressLocality":"{{ d.city }}","streetAddress":"{{ d.area|escapejs }}","addressCountry":"IN"}}}{% if not forloop.last %},{% endif %}{% endfor %}
+  ]
+}
+</script>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="page-head"><div class="container">
+  <div class="crumb"><a href="{% url 'home' %}">Home</a> › <a href="{% url 'dealers' %}">Dealers</a> › {{ city }}</div>
+  <h1 class="display" style="font-size:40px">Green energy dealers in {{ city }}</h1>
+  <p class="lede" style="margin-top:10px">Rooftop solar, rainwater harvesting, EV charging and more — local suppliers serving {{ city }}. Call or WhatsApp them directly, free for homeowners.</p>
+</div></div>
+
+<div class="section" style="padding-top:34px"><div class="container">
+
+  {% if categories %}
+  <div class="eyebrow">Available in {{ city }}</div>
+  <h2 class="display" style="font-size:26px;margin-bottom:8px">What you can install here</h2>
+  <div class="cat-grid" style="margin-top:22px">
+    {% for c in categories %}
+    <a class="cat-card" href="{% url 'category' c.slug %}">{% cat_icon c.icon %}<h3>{{ c.name }}</h3><p>{{ c.short }}</p><span class="go">EXPLORE →</span></a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <h2 class="display" style="font-size:26px;margin:44px 0 20px">{{ dealers|length }} dealer{{ dealers|length|pluralize }} in {{ city }}</h2>
+  {% if dealers %}
+    <div class="dealer-grid">{% for d in dealers %}{% include "directory/_dealer.html" %}{% endfor %}</div>
+  {% else %}
+    <p style="color:var(--muted)">We're onboarding dealers in {{ city }} right now. <a href="{% url 'enquiry' %}" style="color:var(--forest);text-decoration:underline">Send an enquiry</a> and we'll connect you with a nearby supplier.</p>
+  {% endif %}
+
+  <h2 class="display" style="font-size:26px;margin:48px 0 8px">Plan before you buy</h2>
+  <p class="lede">Run your own numbers first — it takes two minutes and puts you ahead of any sales pitch.</p>
+  <div class="tool-grid">
+    {% for t in tools %}
+    <a class="tool-card" href="{% url 'tool' t.slug %}"><div class="tico">Free tool</div><h3>{{ t.name }}</h3><p>{{ t.description }}</p></a>
+    {% endfor %}
+  </div>
+
+  <div style="margin-top:44px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+    <div><b>Supplier based in {{ city }}?</b><div style="font-size:14px;color:var(--muted)">Get listed and reach homeowners searching in your area.</div></div>
+    <a class="btn btn-forest" href="{% url 'list_business' %}">List your business →</a>
+  </div>
+
+  <div style="margin-top:34px">
+    <div class="eyebrow">Other cities</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+      <a class="fchip" href="{% url 'city' 'faridabad' %}">Faridabad</a>
+      <a class="fchip" href="{% url 'city' 'delhi' %}">Delhi</a>
+      <a class="fchip" href="{% url 'city' 'gurugram' %}">Gurugram</a>
+      <a class="fchip" href="{% url 'city' 'noida' %}">Noida</a>
+      <a class="fchip" href="{% url 'city' 'ghaziabad' %}">Ghaziabad</a>
+    </div>
+  </div>
+
+</div></div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "directory/base.html" %}
+{% load harit_extras %}
+{% block title %}Page not found — RenSetu{% endblock %}
+{% block description %}That page doesn't exist. Browse green energy solutions, free tools and trusted dealers across {{ site.region }} on RenSetu.{% endblock %}
+{% block content %}
+<div class="page-head"><div class="container">
+  <div class="eyebrow">Error 404</div>
+  <h1 class="display" style="font-size:40px">We couldn't find that page</h1>
+  <p class="lede" style="margin-top:10px">The link may be old or mistyped. Here's where most people go next.</p>
+</div></div>
+<div class="section" style="padding-top:34px"><div class="container">
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:38px">
+    <a class="btn btn-forest" href="{% url 'home' %}">Go to homepage</a>
+    <a class="btn btn-ghost" href="{% url 'dealers' %}">Find a dealer</a>
+    <a class="btn btn-ghost" href="{% url 'tools' %}">Free tools</a>
+  </div>
+  <div class="eyebrow">Popular solutions</div>
+  <div class="cat-grid" style="margin-top:20px">
+    {% for c in categories %}
+    <a class="cat-card" href="{% url 'category' c.slug %}">{% cat_icon c.icon %}<h3>{{ c.name }}</h3><p>{{ c.short }}</p><span class="go">EXPLORE →</span></a>
+    {% endfor %}
+  </div>
+</div></div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from directory.models import Category, Dealer, Guide, SiteSetting, Tool
+from directory.models import FAQ, Category, Dealer, Guide, SiteSetting, Tool
 
 CATS = [
     ("solar", "Rooftop Solar", "Generate your own power, slash your bill.", "solar",
@@ -87,6 +87,37 @@ GUIDES = [
      "Small wind is real technology - on the right site. The physics is unforgiving: power scales with the cube of wind speed, so a site with 4 m/s average makes roughly half the energy of one at 5 m/s. Urban rooftops, surrounded by buildings, are turbulent and slow.\n\nRule of thumb: if trees around you aren't constantly swaying, a terrace turbine will disappoint. Genuinely windy open sites - farmhouses, ridge lines, coastal strips - can work, ideally after a month of actual wind logging.\n\nOur advice, and we say this running a green directory: in most NCR colonies, put the same money into more solar. Where wind is marginal, a small solar-wind hybrid at least diversifies. Use the feasibility tool before any purchase."),
 ]
 
+FAQS = [
+    ("solar", "How much does rooftop solar cost in Delhi NCR?",
+     "A residential rooftop solar system in Delhi NCR costs roughly Rs 45,000 to Rs 65,000 per kW before subsidy. A typical 3 kW home system therefore lands around Rs 1.5-2 lakh, dropping to roughly Rs 75,000-1.2 lakh after the PM Surya Ghar subsidy. Final price depends on panel brand, inverter type, roof structure and whether you need extra mounting height."),
+    ("solar", "How much solar do I need for a Rs 3,000 monthly electricity bill?",
+     "A Rs 3,000 monthly bill at around Rs 8 per unit means roughly 375 units a month, which usually needs a 2.5 to 3 kW rooftop system in Delhi NCR. Our free solar calculator works this out from your exact bill and tariff in a few seconds."),
+    ("solar", "How long does rooftop solar take to pay for itself?",
+     "Most Delhi NCR homes recover the net cost in three to five years after subsidy. Panels are warranted for around 25 years, so the remaining two decades of generation are effectively free power. Payback is faster if your tariff is high or your usage is heavy."),
+    ("solar", "Do solar panels work during Delhi's winter smog and monsoon?",
+     "Yes, but output drops. Heavy smog and overcast monsoon days can cut generation significantly for short periods, which is already factored into the annual averages used in our calculator. Over a full year, Delhi NCR still gets strong solar irradiance. Regular cleaning matters more here than in cleaner-air cities."),
+    ("solar", "Is rooftop solar worth it if I already have an inverter battery?",
+     "Usually yes, and they solve different problems. An inverter battery gives you backup during cuts but adds nothing to your bill savings. On-grid solar cuts the bill but shuts off during a cut. Many NCR homes keep the existing inverter and add on-grid solar, or move to a hybrid inverter if cuts are frequent."),
+    ("heater", "What size solar water heater does a family of four need?",
+     "A family of four typically needs a 100 to 150 LPD (litres per day) solar water heater. Size up to 200 LPD if you have more bathrooms in simultaneous use or guests often. Our water heater tool sizes it from your household count and shows the winter savings."),
+    ("heater", "Do solar water heaters work in Delhi winters?",
+     "Yes. Evacuated tube collector (ETC) systems perform well in Delhi NCR winters, which is exactly when a geyser costs you the most. On genuinely overcast days the backup electric element covers the gap, but most owners see their winter geyser usage fall sharply."),
+    ("rain", "How much rainwater can my roof collect in Delhi NCR?",
+     "Every square metre of roof collects about one litre per millimetre of rain. With Delhi NCR's roughly 790 mm annual rainfall, a 100 square metre roof sheds close to 79,000 litres a year, of which around 80% is realistically capturable. Our rainwater tool calculates it from your exact roof area."),
+    ("rain", "Is rainwater harvesting compulsory in Delhi NCR?",
+     "For many plot sizes, yes. Several NCR municipal bodies mandate rainwater harvesting above a certain plot area, and some offer property-tax rebates for compliant systems. Rules vary by local body and do change, so confirm with your municipal corporation or ask a listed dealer who works in your area."),
+    ("ev", "How much does a home EV charger cost to install in India?",
+     "A home AC charging setup typically costs Rs 15,000 to Rs 75,000 installed, depending on whether you need a simple wired point for a two-wheeler or a 3.3-7.4 kW wall box on a dedicated line for a car. Cost rises if the run from your meter is long or your sanctioned load needs upgrading."),
+    ("ev", "How much cheaper is an EV than petrol per kilometre?",
+     "In Delhi NCR an electric two-wheeler runs at roughly 25-30 paise per km against about Rs 2 per km for petrol, and an electric car at roughly Rs 1.20 per km against about Rs 6.30. Our EV calculator gives your exact monthly saving from your daily running and local prices."),
+    ("wind", "Is a rooftop wind turbine worth it in Delhi?",
+     "For most Delhi NCR colony rooftops, no. Wind power scales with the cube of wind speed, and buildings make urban rooftops turbulent and slow. Genuinely open sites like farmhouses can work. Run our free wind feasibility check first, and if it comes back marginal, the same money in extra solar will almost always generate more."),
+    ("battery", "Do I need a battery with rooftop solar?",
+     "Usually not, if your grid supply is stable and you have net metering. Exporting surplus to the grid earns credit, so the grid effectively acts as your battery at no extra cost. Add a battery only if you face frequent cuts or need specific critical loads to ride through them."),
+    ("compost", "Is composting mandatory for housing societies in NCR?",
+     "Increasingly yes. Bulk waste generators, which includes many housing societies, are required to segregate and process wet waste on site under solid waste rules. Requirements and enforcement vary by local body, so check your municipal corporation's current rules."),
+]
+
 
 class Command(BaseCommand):
     help = "Load RenSetu starter content (categories, dealers, tools, guides)."
@@ -128,5 +159,13 @@ class Command(BaseCommand):
             )
             d.categories.set([cat_objs[s] for s in cats])
         self.stdout.write(f"Dealers: {Dealer.objects.count()}")
+
+        for i, (cat_slug, q, a) in enumerate(FAQS):
+            FAQ.objects.update_or_create(
+                question=q,
+                defaults=dict(category=cat_objs.get(cat_slug), answer=a,
+                              order=i, is_active=True),
+            )
+        self.stdout.write(f"FAQs: {FAQ.objects.count()}")
 
         self.stdout.write(self.style.SUCCESS("RenSetu content seeded."))

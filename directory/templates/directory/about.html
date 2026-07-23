@@ -1,5 +1,36 @@
 {% extends "directory/base.html" %}
 {% block title %}About — RenSetu{% endblock %}
+{% block description %}RenSetu is an independent green energy directory for {{ site.region }} — honest guides, free tools and vetted local dealers, with no commissions on your purchase.{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About RenSetu",
+  "url": "https://rensetu.in/about/",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "RenSetu",
+    "url": "https://rensetu.in/",
+    "description": "Independent green energy directory for {{ site.region }}, India.",
+    "foundingLocation": {"@type":"Place","name":"Faridabad, Haryana, India"},
+    "areaServed": {"@type":"Place","name":"{{ site.region }}, India"},
+    "knowsAbout": ["Rooftop solar","Solar water heating","Rainwater harvesting","EV charging","Home biogas","Composting","Greywater recycling"]
+  }
+}
+</script>
+{% if faqs %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{% for f in faqs %}
+    {"@type":"Question","name":"{{ f.question|escapejs }}","acceptedAnswer":{"@type":"Answer","text":"{{ f.answer|escapejs }}"}}{% if not forloop.last %},{% endif %}{% endfor %}
+  ]
+}
+</script>
+{% endif %}
+{% endblock %}
 {% block content %}
 <div class="page-head"><div class="container">
   <div class="crumb"><a href="{% url 'home' %}">Home</a> › About</div>
@@ -10,6 +41,30 @@
   <p>RenSetu is our answer: one calm, honest place that explains each solution in plain words, lets you run your own numbers with free tools, and connects you to real dealers in your city. No commissions on your purchase, no pay-to-rank listings pretending to be recommendations, and no pressure.</p>
   <p>We keep the site alive with a token listing fee from suppliers — enough to cover the hosting, never enough to bend our honesty. If a solution isn't right for your site (looking at you, rooftop wind in a crowded colony), we'll say so.</p>
   <h2>Made in Faridabad, for all of {{ site.region }}.</h2>
+  <h2>Who runs RenSetu</h2>
+  <p>RenSetu is run from Faridabad by a small independent team with a background in statistics and data analysis. The calculators on this site were built in-house from published generation, tariff and subsidy figures for Delhi NCR rather than copied from vendor marketing material — which is why they show ranges and caveats instead of a single flattering number.</p>
+
+  <h2>How we make money, and how we don't</h2>
+  <p>Suppliers pay a flat {{ site.listing_price }} per month to be listed. That is it. We take no commission on anything you buy, we do not sell your enquiry to the highest bidder, and paying does not buy a higher position or a better review. The fee exists to cover hosting and the domain, nothing more. If that ever changes, this page changes with it.</p>
+
+  <h2>How we check our numbers</h2>
+  <p>Cost, subsidy and payback figures are indicative ranges for {{ site.region }}, drawn from published scheme documents and prevailing market prices. Subsidy rules change, so every page points you to the official source — for rooftop solar that is pmsuryaghar.gov.in — and we tell you to verify before committing money. Guides carry a last-updated date so you can judge for yourself whether they are current.</p>
+
+  <h2>What we will tell you that a salesperson won't</h2>
+  <p>Our wind feasibility tool talks most urban users out of buying a turbine. Our battery page says most NCR homes on a stable grid don't need one. That is deliberate. A directory that only ever says yes is an advertisement, and it would be worth nothing to you.</p>
+
+  {% if faqs %}
+  <h2>Questions about RenSetu</h2>
+  <div class="faq-list">
+    {% for f in faqs %}
+    <details class="faq"{% if forloop.first %} open{% endif %}>
+      <summary>{{ f.question }}</summary>
+      <p>{{ f.answer }}</p>
+    </details>
+    {% endfor %}
+  </div>
+  {% endif %}
+
   <p>Start with the <a href="{% url 'tools' %}" style="color:var(--forest);text-decoration:underline">tools</a>, browse the <a href="{% url 'dealers' %}" style="color:var(--forest);text-decoration:underline">dealers</a>, or just <a href="{% url 'enquiry' %}" style="color:var(--forest);text-decoration:underline">send us an enquiry</a> — we'll take it from there.</p>
 </div></div>
 {% endblock %}

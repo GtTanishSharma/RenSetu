@@ -1,0 +1,43 @@
+# RenSetu — The Green Energy Directory
+
+> A free, independent directory helping homeowners in Delhi NCR find trusted local dealers for rooftop solar, rainwater harvesting, EV charging, biogas and other green upgrades. Includes free planning calculators and plain-language guides. No commissions on purchases.
+
+## Solutions
+Ten green upgrades covered, each with typical cost, available subsidy, expected saving and payback for Delhi NCR:
+- Rooftop Solar: https://rensetu.in/solutions/solar/
+- Solar Water Heater: https://rensetu.in/solutions/heater/
+- Rainwater Harvesting: https://rensetu.in/solutions/rain/
+- EV Charging Setup: https://rensetu.in/solutions/ev/
+- Battery & Backup: https://rensetu.in/solutions/battery/
+- Terrace Wind Turbine: https://rensetu.in/solutions/wind/
+- Home Biogas: https://rensetu.in/solutions/biogas/
+- Composting & Waste: https://rensetu.in/solutions/compost/
+- Cool & Green Roofing: https://rensetu.in/solutions/roof/
+- Greywater Recycling: https://rensetu.in/solutions/grey/
+
+## Free tools
+- Rooftop Solar Savings Calculator: https://rensetu.in/tools/solarcalc/
+- Roof Area to Solar Size: https://rensetu.in/tools/sizer/
+- Water Heater Savings: https://rensetu.in/tools/heatercalc/
+- Rainwater Harvest Estimator: https://rensetu.in/tools/raincalc/
+- EV vs Petrol Cost: https://rensetu.in/tools/evcalc/
+- Wind Feasibility Check: https://rensetu.in/tools/windcheck/
+- Home Carbon Footprint: https://rensetu.in/tools/carbon/
+
+## Guides
+- PM Surya Ghar subsidy explained: https://rensetu.in/learn/suryaghar/
+- Is your roof solar-ready: https://rensetu.in/learn/roofready/
+- Net metering in plain words: https://rensetu.in/learn/netmeter/
+- On-grid, off-grid or hybrid: https://rensetu.in/learn/gridtypes/
+- Rainwater harvesting basics: https://rensetu.in/learn/rwhbasics/
+- The honest truth about rooftop wind: https://rensetu.in/learn/windtruth/
+
+## Dealers by city
+- Faridabad: https://rensetu.in/dealers/faridabad/
+- Delhi: https://rensetu.in/dealers/delhi/
+- Gurugram: https://rensetu.in/dealers/gurugram/
+- Noida: https://rensetu.in/dealers/noida/
+- Ghaziabad: https://rensetu.in/dealers/ghaziabad/
+
+## Notes
+All cost, subsidy and payback figures are indicative for Delhi NCR and should be verified against official portals such as pmsuryaghar.gov.in before purchase.
