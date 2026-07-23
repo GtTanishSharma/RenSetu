@@ -1,9 +1,10 @@
-{% load harit_extras %}<!DOCTYPE html>
+{% load static harit_extras %}<!DOCTYPE html>
 <html lang="en-IN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="MTIj5F2XVjvbf0nB5bRnwNQX8lRG-Q2R1jVQL_oQVlU" />
+<link rel="icon" type="image/png" href="{% static 'directory/logo-icon.png' %}">
 <title>{% block title %}RenSetu — The Green Energy Directory · {{ site.region }}{% endblock %}</title>
 <meta name="description" content="{% block description %}Find trusted dealers for rooftop solar, wind, rainwater harvesting, EV charging and more across {{ site.region }}. Free tools, honest guides, verified suppliers.{% endblock %}">
 <link rel="canonical" href="https://rensetu.in{{ request.path }}">
@@ -220,7 +221,10 @@
 <body>
 <header>
   <div class="bar">
-    <a class="logo" href="{% url 'home' %}">Ren<b>Setu</b><span class="dot">.</span></a>
+    <a class="logo" href="{% url 'home' %}" style="display:flex;align-items:center;gap:8px;">
+      <img src="{% static 'directory/logo-icon.png' %}" alt="RenSetu" style="height:34px;width:auto;">
+      Ren<b>Setu</b><span class="dot">.</span>
+    </a>
     <button class="burger" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
     <nav class="nav" id="nav">
       <a href="{% url 'home' %}" {% if nav == 'home' %}class="active"{% endif %}>Home</a>
@@ -247,7 +251,10 @@
 <footer>
   <div class="fgrid">
     <div>
-      <div class="flogo">RenSetu<span class="dot">.</span></div>
+      <div class="flogo" style="display:flex;align-items:center;gap:8px;">
+        <img src="{% static 'directory/logo-icon.png' %}" alt="RenSetu" style="height:30px;width:auto;">
+        RenSetu<span class="dot">.</span>
+      </div>
       <p style="font-size:13.5px;line-height:1.7;max-width:300px;">The green energy directory for {{ site.region }}. Find trusted local dealers, use free planning tools, and make the switch with confidence.</p>
     </div>
     <div><h2>EXPLORE</h2><a href="{% url 'solutions' %}">Solutions</a><a href="{% url 'dealers' %}">Find Dealers</a><a href="{% url 'tools' %}">Free Tools</a><a href="{% url 'learn' %}">Guides</a></div>
