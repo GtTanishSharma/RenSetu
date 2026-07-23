@@ -4,17 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="MTIj5F2XVjvbf0nB5bRnwNQX8lRG-Q2R1jVQL_oQVlU" />
-<link rel="icon" type="image/png" href="{% static 'directory/logo-icon.png' %}">
 <title>{% block title %}RenSetu — The Green Energy Directory · {{ site.region }}{% endblock %}</title>
 <meta name="description" content="{% block description %}Find trusted dealers for rooftop solar, wind, rainwater harvesting, EV charging and more across {{ site.region }}. Free tools, honest guides, verified suppliers.{% endblock %}">
 <link rel="canonical" href="https://rensetu.in{{ request.path }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/icon-32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/icon-16.png' %}">
+<link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/icon-192.png' %}">
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/icon-180.png' %}">
+<meta name="theme-color" content="#1E4D3B">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:site_name" content="RenSetu">
 <meta property="og:type" content="{% block og_type %}website{% endblock %}">
 <meta property="og:title" content="{% block og_title %}{% block title_plain %}RenSetu — The Green Energy Directory{% endblock %}{% endblock %}">
 <meta property="og:description" content="{% block og_desc %}Find trusted dealers for rooftop solar, rainwater harvesting, EV charging and more across {{ site.region }}.{% endblock %}">
 <meta property="og:url" content="https://rensetu.in{{ request.path }}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://rensetu.in{% static 'img/og-image.png' %}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://rensetu.in{% static 'img/og-image.png' %}">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -41,7 +50,8 @@
   .container{max-width:1140px;margin:0 auto;padding:0 24px;}
   header{position:sticky;top:0;z-index:60;background:rgba(250,249,244,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
   .bar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1200px;margin:0 auto;}
-  .logo{font-family:var(--serif);font-size:24px;letter-spacing:5px;font-weight:500;}
+  .logo{font-family:var(--serif);font-size:27px;letter-spacing:1.5px;font-weight:500;display:inline-flex;align-items:center;gap:11px;}
+  .logo img{display:block;width:38px;height:38px;flex-shrink:0;}
   .logo b{color:var(--forest);font-weight:400;}
   .logo .dot{color:var(--gold);}
   .nav{display:flex;gap:28px;align-items:center;}
@@ -190,7 +200,8 @@
   .fgrid h2{color:#fff;font-weight:600;font-size:13px;letter-spacing:2px;margin-bottom:14px;font-weight:600;}
   .fgrid a{display:block;font-size:13.5px;padding:4px 0;color:rgba(255,255,255,.65);}
   .fgrid a:hover{color:#fff;}
-  .flogo{font-family:var(--serif);font-size:28px;letter-spacing:1.5px;color:#fff;margin-bottom:12px;}
+  .flogo{font-family:var(--serif);font-size:28px;letter-spacing:1.5px;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+  .flogo img{display:block;width:34px;height:34px;}
   .flogo .dot{color:var(--gold);}
   .fbottom{max-width:1140px;margin:0 auto;border-top:1px solid rgba(255,255,255,.14);padding-top:18px;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
   @media(max-width:960px){
@@ -221,10 +232,7 @@
 <body>
 <header>
   <div class="bar">
-    <a class="logo" href="{% url 'home' %}" style="display:flex;align-items:center;gap:8px;">
-      <img src="{% static 'directory/logo-icon.png' %}" alt="RenSetu" style="height:34px;width:auto;">
-      Ren<b>Setu</b><span class="dot">.</span>
-    </a>
+    <a class="logo" href="{% url 'home' %}"><img src="{% static 'img/logo-header.png' %}" alt="" width="38" height="38"><span>Ren<b>Setu</b><span class="dot">.</span></span></a>
     <button class="burger" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
     <nav class="nav" id="nav">
       <a href="{% url 'home' %}" {% if nav == 'home' %}class="active"{% endif %}>Home</a>
@@ -251,10 +259,7 @@
 <footer>
   <div class="fgrid">
     <div>
-      <div class="flogo" style="display:flex;align-items:center;gap:8px;">
-        <img src="{% static 'directory/logo-icon.png' %}" alt="RenSetu" style="height:30px;width:auto;">
-        RenSetu<span class="dot">.</span>
-      </div>
+      <div class="flogo"><img src="{% static 'img/logo-header.png' %}" alt="" width="34" height="34"><span>Ren<b>Setu</b><span class="dot">.</span></span></div>
       <p style="font-size:13.5px;line-height:1.7;max-width:300px;">The green energy directory for {{ site.region }}. Find trusted local dealers, use free planning tools, and make the switch with confidence.</p>
     </div>
     <div><h2>EXPLORE</h2><a href="{% url 'solutions' %}">Solutions</a><a href="{% url 'dealers' %}">Find Dealers</a><a href="{% url 'tools' %}">Free Tools</a><a href="{% url 'learn' %}">Guides</a></div>
