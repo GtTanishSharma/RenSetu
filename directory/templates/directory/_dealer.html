@@ -5,7 +5,7 @@
     {% if d.is_verified %}<span class="badge-v"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10" fill="#1E4D3B" stroke="none"/><path d="M8 12.5l2.6 2.6L16 9.6" stroke="#fff"/></svg>Verified</span>{% endif %}
   </div>
   <div class="cats">{% for c in d.categories.all %}<span>{{ c.name }}</span>{% endfor %}</div>
-  <div class="desc">{{ d.desc|default:d.description }}{% if d.since %} <span style="color:#9AA69F">· Since {{ d.since }}</span>{% endif %}</div>
+  <div class="desc">{{ d.desc|default:d.description }}{% if d.since %} <span style="color:#68746E">· Since {{ d.since }}</span>{% endif %}</div>
   <div class="actions">
     <a class="call" href="tel:{{ d.phone|clean_phone }}">Call {{ d.phone }}</a>
     <a class="wa" href="{% wa_link d.whatsapp 'Hi, I found you on RenSetu (the green energy directory). I would like to enquire about your services.' %}" target="_blank">

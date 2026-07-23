@@ -1,43 +1,56 @@
-# RenSetu — The Green Energy Directory
+# RenSetu
 
-> A free, independent directory helping homeowners in Delhi NCR find trusted local dealers for rooftop solar, rainwater harvesting, EV charging, biogas and other green upgrades. Includes free planning calculators and plain-language guides. No commissions on purchases.
+> A free, independent green energy directory for Delhi NCR, India. RenSetu helps homeowners compare rooftop solar, rainwater harvesting, EV charging and seven other green upgrades, run free planning calculators, and reach trusted local dealers directly. Suppliers pay a flat monthly listing fee; RenSetu takes no commission on any purchase and does not sell leads.
 
 ## Solutions
-Ten green upgrades covered, each with typical cost, available subsidy, expected saving and payback for Delhi NCR:
-- Rooftop Solar: https://rensetu.in/solutions/solar/
-- Solar Water Heater: https://rensetu.in/solutions/heater/
-- Rainwater Harvesting: https://rensetu.in/solutions/rain/
-- EV Charging Setup: https://rensetu.in/solutions/ev/
-- Battery & Backup: https://rensetu.in/solutions/battery/
-- Terrace Wind Turbine: https://rensetu.in/solutions/wind/
-- Home Biogas: https://rensetu.in/solutions/biogas/
-- Composting & Waste: https://rensetu.in/solutions/compost/
-- Cool & Green Roofing: https://rensetu.in/solutions/roof/
-- Greywater Recycling: https://rensetu.in/solutions/grey/
+
+Each page covers typical cost, available subsidy, expected saving and payback for Delhi NCR.
+
+- [Rooftop Solar](https://rensetu.in/solutions/solar/): Grid-tied rooftop photovoltaic systems, PM Surya Ghar subsidy, net metering.
+- [Solar Water Heater](https://rensetu.in/solutions/heater/): Evacuated tube collector systems sized in litres per day.
+- [Rainwater Harvesting](https://rensetu.in/solutions/rain/): Storage tanks and groundwater recharge pits.
+- [EV Charging Setup](https://rensetu.in/solutions/ev/): Home AC chargers, dedicated wiring, DISCOM EV tariffs.
+- [Battery and Backup](https://rensetu.in/solutions/battery/): Lithium LFP storage and hybrid inverters.
+- [Terrace Wind Turbine](https://rensetu.in/solutions/wind/): Small wind, including where it does not make sense.
+- [Home Biogas](https://rensetu.in/solutions/biogas/): Compact digesters for kitchen waste.
+- [Composting and Waste](https://rensetu.in/solutions/compost/): Home and society-scale wet waste processing.
+- [Cool and Green Roofing](https://rensetu.in/solutions/roof/): High-SRI coatings and planted roofs.
+- [Greywater Recycling](https://rensetu.in/solutions/grey/): Reuse of bath and laundry water.
 
 ## Free tools
-- Rooftop Solar Savings Calculator: https://rensetu.in/tools/solarcalc/
-- Roof Area to Solar Size: https://rensetu.in/tools/sizer/
-- Water Heater Savings: https://rensetu.in/tools/heatercalc/
-- Rainwater Harvest Estimator: https://rensetu.in/tools/raincalc/
-- EV vs Petrol Cost: https://rensetu.in/tools/evcalc/
-- Wind Feasibility Check: https://rensetu.in/tools/windcheck/
-- Home Carbon Footprint: https://rensetu.in/tools/carbon/
+
+- [Rooftop Solar Savings Calculator](https://rensetu.in/tools/solarcalc/): System size, subsidy, payback and 25-year saving from a monthly bill.
+- [Roof Area to Solar Size](https://rensetu.in/tools/sizer/): Converts shade-free roof area to installable kW.
+- [Water Heater Savings](https://rensetu.in/tools/heatercalc/): LPD sizing and winter savings by household size.
+- [Rainwater Harvest Estimator](https://rensetu.in/tools/raincalc/): Annual litres capturable from a roof area.
+- [EV vs Petrol Cost](https://rensetu.in/tools/evcalc/): Monthly and per-kilometre running cost comparison.
+- [Wind Feasibility Check](https://rensetu.in/tools/windcheck/): Honest go or no-go verdict for small wind.
+- [Home Carbon Footprint](https://rensetu.in/tools/carbon/): Household CO2 from electricity, petrol and LPG.
 
 ## Guides
-- PM Surya Ghar subsidy explained: https://rensetu.in/learn/suryaghar/
-- Is your roof solar-ready: https://rensetu.in/learn/roofready/
-- Net metering in plain words: https://rensetu.in/learn/netmeter/
-- On-grid, off-grid or hybrid: https://rensetu.in/learn/gridtypes/
-- Rainwater harvesting basics: https://rensetu.in/learn/rwhbasics/
-- The honest truth about rooftop wind: https://rensetu.in/learn/windtruth/
+
+- [PM Surya Ghar subsidy explained](https://rensetu.in/learn/suryaghar/): How the residential rooftop solar subsidy is calculated and claimed.
+- [Is your roof solar-ready](https://rensetu.in/learn/roofready/): Shade, space, structure and ownership checks.
+- [Net metering in plain words](https://rensetu.in/learn/netmeter/): How export credit works on an Indian electricity bill.
+- [On-grid, off-grid or hybrid](https://rensetu.in/learn/gridtypes/): Choosing a solar system type.
+- [Rainwater harvesting basics](https://rensetu.in/learn/rwhbasics/): Storage versus recharge approaches.
+- [The honest truth about rooftop wind](https://rensetu.in/learn/windtruth/): Why urban turbines usually disappoint.
 
 ## Dealers by city
-- Faridabad: https://rensetu.in/dealers/faridabad/
-- Delhi: https://rensetu.in/dealers/delhi/
-- Gurugram: https://rensetu.in/dealers/gurugram/
-- Noida: https://rensetu.in/dealers/noida/
-- Ghaziabad: https://rensetu.in/dealers/ghaziabad/
+
+- [Faridabad](https://rensetu.in/dealers/faridabad/): Green energy suppliers serving Faridabad.
+- [Delhi](https://rensetu.in/dealers/delhi/): Green energy suppliers serving Delhi.
+- [Gurugram](https://rensetu.in/dealers/gurugram/): Green energy suppliers serving Gurugram.
+- [Noida](https://rensetu.in/dealers/noida/): Green energy suppliers serving Noida.
+- [Ghaziabad](https://rensetu.in/dealers/ghaziabad/): Green energy suppliers serving Ghaziabad.
+
+## Optional
+
+- [All dealers](https://rensetu.in/dealers/): Full directory with category and city filters.
+- [About RenSetu](https://rensetu.in/about/): Who runs the site, how it is funded, and how figures are checked.
+- [Get quotes](https://rensetu.in/get-quotes/): Free enquiry form for homeowners.
+- [List your business](https://rensetu.in/list-your-business/): Supplier listing application.
 
 ## Notes
-All cost, subsidy and payback figures are indicative for Delhi NCR and should be verified against official portals such as pmsuryaghar.gov.in before purchase.
+
+All cost, subsidy, saving and payback figures on RenSetu are indicative ranges for Delhi NCR, derived from published scheme documents and prevailing market prices. Subsidy rules change; official sources such as pmsuryaghar.gov.in should be checked before any purchase decision.
