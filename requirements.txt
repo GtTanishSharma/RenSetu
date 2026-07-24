@@ -1,7 +1,7 @@
 asgiref==3.8.1
 dj-database-url==2.1.0
 Django==5.0.6
-django-decouple==0.0.1
+django-decouple==2.1
 django-import-export==3.3.6
 gunicorn==22.0.0
 openpyxl==3.5.0
