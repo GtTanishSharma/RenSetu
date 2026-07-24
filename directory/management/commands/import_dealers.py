@@ -65,6 +65,12 @@ class Command(BaseCommand):
             phone_clean = self._clean_phone(phone)
             whatsapp_clean = self._clean_phone(whatsapp)
 
+            if len(phone_clean) > 25 or len(whatsapp_clean) > 20:
+                self.stdout.write(self.style.ERROR(
+                    f'❌ Row {row_num}: {name} — phone/whatsapp too long, skipping'
+                ))
+                continue
+
             desc_parts = [str(description).strip()] if description else []
             if website and isinstance(website, str):
                 website = website.strip()
