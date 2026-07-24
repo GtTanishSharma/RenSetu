@@ -6,7 +6,7 @@ CATS = [
     ("solar", "Rooftop Solar", "Generate your own power, slash your bill.", "solar",
      "Rooftop solar is the most proven home upgrade in India today. Panels on your terrace convert sunlight into electricity, net metering lets you export what you don't use, and the central subsidy has never been better.",
      "A typical Delhi NCR home running on a Rs 2,000-4,000 monthly bill needs a 2-3 kW system. Grid-connected (on-grid) systems are the default choice - no batteries, lowest cost, and your meter runs backwards when you export. Expect 25 years of panel life with minimal cleaning and one inverter replacement around year 10-12.",
-     "₹45k–65k / kW", "Up to ₹78,000 (PM Surya Ghar)", "₹1,000–3,500 / month", "3–5 years"),
+     "₹55k–70k / kW", "Up to ₹78,000 (PM Surya Ghar)", "₹1,000–3,500 / month", "3–5 years"),
     ("heater", "Solar Water Heater", "Free hot water, every morning.", "heater",
      "A solar water heater is the quiet workhorse of green tech - simple, no moving parts, and it removes your geyser (one of the biggest power-hungry appliances) from the bill.",
      "Systems are sized in LPD - litres per day. A family of four typically needs 100-150 LPD. Evacuated tube collectors (ETC) work well even in NCR winters. Once installed, running cost is essentially zero; most owners recover the cost in two to four winters.",
@@ -45,22 +45,7 @@ CATS = [
      "₹35k–1.5 lakh (home systems)", "—", "Up to 30–40% of water use", "3–6 years"),
 ]
 
-DEALERS = [
-    ("SuryaTech Solar Solutions", ["solar", "battery"], "Faridabad", "Sector 16, Faridabad", "+91 90000 00001", "919000000001", True, "2018", "Residential rooftop specialists. On-grid & hybrid systems, net-metering paperwork handled end to end."),
-    ("GreenVolt Energy", ["solar", "ev"], "Delhi", "Lajpat Nagar, Delhi", "+91 90000 00002", "919000000002", True, "2016", "MNRE-empanelled installer. Rooftop solar for homes & societies, plus home EV charger installation."),
-    ("AquaSanchay Systems", ["rain", "grey"], "Gurugram", "Sector 45, Gurugram", "+91 90000 00003", "919000000003", True, "2019", "Rainwater harvesting pits, recharge borewells and greywater reuse for villas and RWAs."),
-    ("Hawa Urja Renewables", ["wind", "solar"], "Ghaziabad", "Raj Nagar, Ghaziabad", "+91 90000 00004", "919000000004", False, "2021", "Solar-wind hybrid systems for farmhouses and open sites. Free wind-feasibility survey."),
-    ("EverSun Water Heaters", ["heater"], "Faridabad", "NIT, Faridabad", "+91 90000 00005", "919000000005", True, "2014", "ETC solar water heaters 100-500 LPD. Installation, AMC and winter servicing."),
-    ("ChargeGhar EV", ["ev", "battery"], "Noida", "Sector 62, Noida", "+91 90000 00006", "919000000006", True, "2020", "Home & society EV charging points, dedicated wiring, DISCOM EV-tariff assistance."),
-    ("BhoomiCycle Compost Co.", ["compost", "biogas"], "Delhi", "Dwarka, Delhi", "+91 90000 00007", "919000000007", False, "2019", "Society-scale OWC composters, home khambas, and compact biogas units with training."),
-    ("ThandaChhat Cool Roofs", ["roof"], "Gurugram", "Udyog Vihar, Gurugram", "+91 90000 00008", "919000000008", False, "2022", "High-SRI cool roof coatings and terrace gardens. Free thermal assessment."),
-    ("Nirmal Jal Biogas", ["biogas"], "Faridabad", "Ballabgarh, Faridabad", "+91 90000 00009", "919000000009", True, "2017", "Home and community biogas digesters, installation with first-month culture support."),
-    ("UrjaStore Lithium", ["battery", "solar"], "Delhi", "Okhla, Delhi", "+91 90000 00010", "919000000010", True, "2020", "LFP battery backup, hybrid inverters, and solar retrofits for existing systems."),
-    ("VarshaJal Harvesters", ["rain"], "Noida", "Sector 137, Noida", "+91 90000 00011", "919000000011", True, "2015", "Recharge pits, rooftop RWH for towers & villas, annual pre-monsoon maintenance."),
-    ("SolarSaathi NCR", ["solar", "heater"], "Ghaziabad", "Indirapuram, Ghaziabad", "+91 90000 00012", "919000000012", False, "2021", "Budget-friendly rooftop solar and water heaters with EMI options."),
-    ("GreyWise Water Tech", ["grey"], "Gurugram", "Sohna Road, Gurugram", "+91 90000 00013", "919000000013", False, "2022", "Compact greywater treatment for villas; flush & garden reuse plumbing."),
-    ("PavanShakti Windworks", ["wind"], "Delhi", "Najafgarh, Delhi", "+91 90000 00014", "919000000014", False, "2023", "1-5 kW small wind turbines for open plots and farmhouses. Site wind-logging service."),
-]
+DEALERS = []
 
 TOOLS = [
     ("solarcalc", "Rooftop Solar Savings Calculator", "From your monthly bill to system size, subsidy, payback and 25-year savings.", "solar"),
