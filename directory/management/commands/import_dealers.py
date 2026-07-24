@@ -105,7 +105,7 @@ class Command(BaseCommand):
                         categories_str = categories_str.strip()
                         if categories_str in categories_map:
                             category = categories_map[categories_str]
-                            dealer.categories.add(category)
+                            dealer.categories.set([category])
                             cat_status = f' → {categories_str}'
                         else:
                             cat_status = f' ⚠️  Category "{categories_str}" not found'
