@@ -58,6 +58,10 @@ class Dealer(models.Model):
     categories = models.ManyToManyField(Category, related_name="dealers")
     city = models.CharField(max_length=60)
     area = models.CharField(max_length=120)
+    address = models.TextField(
+        blank=True,
+        help_text="Full street address. Shows on dealer profile for credibility.",
+    )
     phone = models.CharField(max_length=25)
     whatsapp = models.CharField(
         max_length=20, help_text="Country code + number, digits only",
