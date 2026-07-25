@@ -215,17 +215,61 @@
     h1.display{font-size:38px;}
   }
   @media(max-width:680px){
+    /* nav collapses into the hamburger menu */
     .nav{display:none;position:absolute;top:58px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 24px 14px;align-items:stretch;}
     .nav.open{display:flex;}
     .nav a{padding:13px 0;border-bottom:1px solid var(--soft);}
     .nav .cta{margin-top:10px;text-align:center;}
     .burger{display:block;}
-    .cat-grid,.tool-grid,.dealer-grid,.guide-list{grid-template-columns:1fr;}
-    .hero{padding:56px 0 48px;}
+    /* a little more usable width on small screens */
+    .container{padding:0 18px;}
+    /* solution + tool cards sit 2-across instead of one tall column — the big scroll saver */
+    .cat-grid,.tool-grid{grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
+    .cat-card{padding:18px 15px;}
+    .cat-card .ic{width:32px;height:32px;margin-bottom:12px;}
+    .cat-card h3{font-size:15px;}
+    .cat-card p{font-size:12.5px;}
+    .cat-card .go{margin-top:10px;}
+    .tool-card{padding:20px 16px;}
+    /* dealers + guides stay full width — their buttons and text need the room */
+    .dealer-grid,.guide-list{grid-template-columns:1fr;}
+    /* tighter vertical spacing = noticeably less scrolling */
+    .section{padding:38px 0;}
+    .section.tight{padding:28px 0;}
+    .hero{padding:40px 0 34px;}
+    .impact{padding:44px 0;}
+    footer{padding:40px 20px 24px;}
+    /* headings sized for a phone screen */
+    h1.display{font-size:31px;}
+    h2.display{font-size:25px;}
+    .lede{font-size:15.5px;}
+    /* hero stats wrap neatly instead of overflowing */
     .hero-stats{flex-wrap:wrap;gap:16px;}
     .hstat{border-right:none;padding-right:0;margin-right:20px;}
-    .section{padding:52px 0;}
     .fcount{margin-left:0;width:100%;}
+    /* ---------- interior pages ---------- */
+    /* page headers (dealers / category / guides list / tools) — less top space */
+    .page-head{padding:32px 0 20px;}
+    /* dealer page filters: stack full-width, never overflow the screen */
+    .filters{gap:8px;margin:18px 0;}
+    .filters input{min-width:0;width:100%;}
+    .filters select{flex:1;}
+    /* solution / category detail page: tighter, single column already via 960 */
+    .cd-grid{padding:28px 0 44px;gap:26px;}
+    .cd-main h2{font-size:22px;}
+    .facts,.form-card,.tool-form{padding:22px;}
+    /* tools page + calculator result */
+    .tool-wrap{padding:28px 0 44px;gap:24px;}
+    .res-big{padding:22px;}
+    .res-big .v{font-size:32px;}
+    /* guide article pages */
+    .article{padding:30px 0 46px;}
+    .article h2{font-size:21px;}
+    .article p{font-size:15px;}
+    /* forms: get quotes / list your business */
+    .form-wrap{padding:30px 0 46px;}
+    /* faq rows: comfortable tap size */
+    .faq summary{font-size:14.5px;padding:14px 44px 14px 16px;}
   }
   {% block extra_css %}{% endblock %}
 </style>
