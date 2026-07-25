@@ -75,14 +75,22 @@ class ToolAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
+class GuideResource(resources.ModelResource):
+    class Meta:
+        model = Guide
+        import_id_fields = ("slug",)
+        fields = ("id", "slug", "tag", "title", "body", "order", "is_active", "updated_at")
+
+
 @admin.register(Guide)
-class GuideAdmin(admin.ModelAdmin):
+class GuideAdmin(ImportExportModelAdmin):
+    resource_class = GuideResource
     list_display = ("title", "tag", "order", "is_active")
     list_editable = ("order", "is_active")
     prepopulated_fields = {"slug": ("title",)}
     search_fields = ("title", "body")
 
-
+    
 @admin.register(Enquiry)
 class EnquiryAdmin(admin.ModelAdmin):
     list_display = ("name", "phone", "interest", "city", "property_type", "created_at", "is_handled")
