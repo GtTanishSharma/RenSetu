@@ -266,8 +266,7 @@
     <div><h2>EXPLORE</h2><a href="{% url 'solutions' %}">Solutions</a><a href="{% url 'dealers' %}">Find Dealers</a><a href="{% url 'tools' %}">Free Tools</a><a href="{% url 'learn' %}">Guides</a></div>
     <div><h2>POPULAR</h2><a href="{% url 'category' 'solar' %}">Rooftop Solar</a><a href="{% url 'category' 'rain' %}">Rainwater Harvesting</a><a href="{% url 'category' 'ev' %}">EV Charging</a><a href="{% url 'category' 'wind' %}">Terrace Wind</a></div>
     <div><h2>CITIES</h2><a href="{% url 'city' 'faridabad' %}">Faridabad</a><a href="{% url 'city' 'delhi' %}">Delhi</a><a href="{% url 'city' 'gurugram' %}">Gurugram</a><a href="{% url 'city' 'noida' %}">Noida</a></div>
-    <div><h2>CONNECT</h2><a href="{% url 'enquiry' %}">Get Quotes</a><a href="{% url 'list_business' %}">List Your Business</a><a href="{% url 'about' %}">About RenSetu</a></div>
-  </div>
+<div><h2>CONNECT</h2><a href="{% url 'enquiry' %}">Get Quotes</a><a href="{% url 'list_business' %}">List Your Business</a><a href="https://wa.me/{{ site.owner_whatsapp }}?text=Hi%20RenSetu%2C%20I%27m%20a%20listed%20dealer%20and%20I%27d%20like%20to%20remove%20my%20listing.%20My%20business%20name%20is%3A%20" target="_blank" rel="noopener noreferrer">Remove My Listing</a><a href="{% url 'about' %}">About RenSetu</a></div>  </div>
   <div class="fbottom">
     <span>© 2026 RenSetu · {{ site.region }}, India</span>
     <span>Estimates are indicative. Verify subsidies on official portals.</span>
