@@ -8,3 +8,5 @@ db.sqlite3
 .env
 .vscode/
 .DS_Store
+
+tutorial.pdf
