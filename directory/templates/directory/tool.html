@@ -68,6 +68,44 @@
   </div>
   <div class="tool-result" id="res"></div>
 </div></div>
+
+<div class="container tool-explain" style="max-width:760px;margin-top:36px">
+  {% if tool.slug == 'evcalc' %}
+    <h2>EV vs petrol running cost, explained</h2>
+    <p>This calculator compares what you spend to run an electric two-wheeler or car against the same distance on petrol, using Delhi NCR electricity tariffs. Charging at home in NCR typically costs a small fraction of petrol per kilometre &mdash; often around &#8377;0.30&ndash;0.60 per km for a scooter versus &#8377;2 or more on petrol.</p>
+    <p>Keep in mind this is <strong>running cost only</strong>. It excludes the purchase price of the vehicle and eventual battery replacement, both of which matter for the true total cost of ownership. Use the monthly saving figure to work out how many months of fuel savings it takes to offset any higher sticker price on the EV.</p>
+    <p>Home charging on a normal 15A socket is the cheapest option; public fast-charging costs more per unit. If you're weighing a proper home charger, see our <a href="/solutions/ev/">EV charging setup</a> page for costs and local installers.</p>
+  {% elif tool.slug == 'solarcalc' %}
+    <h2>How the solar savings estimate works</h2>
+    <p>This tool turns your monthly electricity bill into an indicative rooftop solar system size and yearly saving for Delhi NCR, assuming typical local generation of roughly 4&ndash;4.5 units per kW per day. Real output depends on roof orientation, shading and panel quality, so treat this as a ballpark &mdash; a site survey gives exact numbers.</p>
+    <p>Most NCR homes reach payback in about 3&ndash;5 years after the PM Surya Ghar subsidy, then enjoy decades of near-free daytime power. See <a href="/solutions/solar/">rooftop solar</a> for full costs, subsidy details and trusted dealers.</p>
+  {% elif tool.slug == 'sizer' %}
+    <h2>Roof area to solar size, explained</h2>
+    <p>This tool estimates how large a rooftop solar system your available roof can physically hold, using a rule of thumb of about 90 sq ft of clear, shade-free area per kW. Only count area that stays free of water tanks, parapets and shadows through the day.</p>
+    <p>The size you can fit and the size you actually need aren't always the same &mdash; if your roof is larger than your consumption, you can either export the surplus through net metering or simply install fewer panels. Use the <a href="/tools/solarcalc/">solar savings calculator</a> to match system size to your bill.</p>
+  {% elif tool.slug == 'heatercalc' %}
+    <h2>Solar water heater savings, explained</h2>
+    <p>This estimates the right system size in litres per day (LPD) for your household and the electricity you'd save by replacing an electric geyser. A family of four typically needs 100&ndash;150 LPD. Evacuated tube collector (ETC) systems work well through NCR winters, which is when most of the saving happens.</p>
+    <p>Because a solar water heater has no moving parts, running cost is essentially zero once installed, and most owners recover the cost within two to four winters. See <a href="/solutions/heater/">solar water heaters</a> for more.</p>
+  {% elif tool.slug == 'raincalc' %}
+    <h2>Rainwater harvesting estimate, explained</h2>
+    <p>This calculates roughly how much rainwater your roof can capture in a year, based on your roof area and local rainfall (Delhi NCR averages about 790 mm). It assumes around 80% of the rain that falls is actually captured after first-flush and runoff losses.</p>
+    <p>You can either store the water for reuse in gardening, washing or filtration, or direct it into a recharge pit to replenish groundwater. Many NCR municipal bodies mandate harvesting on larger plots and offer property-tax rebates. See <a href="/solutions/rain/">rainwater harvesting</a> for system types.</p>
+  {% elif tool.slug == 'windcheck' %}
+    <h2>Is rooftop wind worth it at your site?</h2>
+    <p>Small wind turbines only make sense on genuinely windy, open sites &mdash; most urban rooftops are too turbulent and sheltered to produce useful power. This quick check scores your location on exposure, wind frequency and nearby obstructions to give an honest verdict before you talk to any dealer.</p>
+    <p>Where wind is marginal, the same budget almost always earns far more as extra rooftop solar. See <a href="/solutions/wind/">terrace wind</a> and <a href="/solutions/solar/">rooftop solar</a> to compare.</p>
+  {% elif tool.slug == 'carbon' %}
+    <h2>Your home carbon footprint, explained</h2>
+    <p>This estimates your household's yearly CO&#8322; emissions from electricity, petrol and LPG, and converts it into the rough number of trees needed to offset it. Electricity is the biggest slice for most homes &mdash; which is exactly the part rooftop solar can wipe out.</p>
+    <p>Use it as a baseline, then see which green upgrade cuts the most for you on our <a href="/solutions/">solutions</a> page.</p>
+  {% else %}
+    <h2>About this tool</h2>
+    <p>{{ tool.description }} All estimates use typical Delhi NCR figures and update instantly as you type &mdash; no signup, and nothing is stored. For exact numbers, get a free quote from a listed dealer in your area.</p>
+  {% endif %}
+
+  <p style="margin-top:20px"><a class="btn btn-ghost" href="/get-quotes/">Get free quotes from local dealers &rarr;</a></p>
+</div>
 {% endblock %}
 
 {% block scripts %}

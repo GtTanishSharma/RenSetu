@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand # type: ignore
 
 from directory.models import FAQ, Category, Dealer, Guide, SiteSetting, Tool
 
@@ -25,7 +25,7 @@ CATS = [
      "₹15k–75k (home AC charger)", "State EV policies vary", "₹1,500–4,000 / month vs petrol", "Immediate on running cost"),
     ("battery", "Battery & Backup", "Store power, ride through cuts.", "battery",
      "Batteries turn intermittent solar into always-on power and replace noisy diesel or inverter-battery setups with cleaner lithium storage.",
-     "Modern lithium (LFP) packs last 8-12 years, charge fast, and pair with hybrid inverters for seamless backup. For most NCR homes on stable grid + net metering, batteries are optional; for areas with frequent cuts or for critical loads, they're transformative. Size the battery to your essential loads, not your whole house, to keep cost sane.",
+     "For most NCR homes on a stable grid with net metering, a battery is optional - the grid acts as your battery, banking daytime solar and returning it at night. Where batteries earn their keep is in two situations: areas with frequent or long power cuts, and homes that must keep critical loads (fridge, Wi-Fi router, a few lights) running through every outage.\n\nModern lithium iron phosphate (LFP) packs have changed the maths. They last 8-12 years, survive 3,000-6,000 charge cycles, charge far faster than old tubular lead-acid batteries, and pair cleanly with a hybrid inverter for seamless switchover - the lights do not even flicker when the grid drops. They also do not off-gas or need topping up with distilled water the way lead-acid inverter batteries do.\n\nThe biggest cost mistake NCR homeowners make is sizing the battery to their whole house instead of their essential loads. You almost never need to run the AC and geyser off a battery. Size it to the handful of things you cannot live without during a cut, and the cost drops from second-car territory to something sensible.\n\nA realistic Faridabad or Delhi example: a family wanting 4-5 hours of backup for lights, fans, fridge and internet typically lands on a 2.5-5 kWh LFP pack with a hybrid inverter, in the Rs 1-2 lakh range installed. A basic lithium backup for just lights and a router can start near Rs 40,000. There is no central subsidy specifically for home batteries in India today - the PM Surya Ghar subsidy applies to the solar panels, not the storage - so treat the battery as a resilience purchase, not a savings one.",
      "₹40k–2 lakh+", "—", "Backup + solar self-use", "Use-case dependent"),
     ("biogas", "Home Biogas", "Kitchen waste in, cooking gas out.", "biogas",
      "A compact biogas digester eats your kitchen's wet waste and gives back cooking gas and liquid fertiliser - a closed loop on your own terrace or backyard.",
@@ -33,7 +33,7 @@ CATS = [
      "₹25k–60k (home units)", "Some state schemes", "1–2 LPG cylinders / month", "2–4 years"),
     ("compost", "Composting & Waste", "Turn waste into soil, not landfill.", "compost",
      "Composting is the cheapest green upgrade there is - and for housing societies in NCR, segregation and on-site processing of wet waste is increasingly a legal requirement, not a choice.",
-     "Homes can start with a Rs 1,500 khamba or tumbler. Societies need drum composters or OWC machines sized to daily wet-waste volume. Done right, a society cuts its landfill load by more than half and produces compost its own gardens absorb.",
+     "For an individual home, you can start for well under Rs 2,000. A three-tier khamba terracotta composter or a rotating tumbler sits on a balcony or in a corner of the yard and turns kitchen wet waste - vegetable peels, tea leaves, leftover food - into usable compost in 6-8 weeks. The two things that trip beginners up are moisture (too wet and it smells; the fix is adding dry browns like newspaper or dried leaves) and meat or dairy (leave them out of a home bin to avoid pests and odour).\n\nFor a society, the right tool depends on daily wet-waste volume. Small societies manage with a set of drum composters; larger ones install an Organic Waste Converter (OWC) machine that mechanically shreds and speeds up decomposition. Sized correctly, a society can cut the waste it sends to landfill by more than half, cut its municipal waste-handling costs, and produce compost its own garden and lawns absorb - closing the loop instead of paying twice, once to buy fertiliser and once to haul waste away.\n\nUnder the Solid Waste Management Rules, bulk waste generators - which includes most group housing societies and large RWAs - are required to segregate wet and dry waste and process the wet fraction on site rather than sending it to landfill. A practical starting point for an NCR society: weigh a few days of wet waste to get your daily kilos, then ask two or three OWC vendors to quote for that throughput. Match the machine to real volume - an oversized unit wastes money and an undersized one overflows.",
      "₹1.5k–15k (home) · more for societies", "ULB support for bulk generators", "Waste-collection savings for RWAs", "—"),
     ("roof", "Cool & Green Roofing", "Cut heat before it enters.", "roof",
      "The cheapest air-conditioning is the heat you never let in. High-reflectance cool-roof coatings and green (planted) roofs drop indoor temperatures noticeably in NCR summers.",
@@ -101,6 +101,16 @@ FAQS = [
      "Usually not, if your grid supply is stable and you have net metering. Exporting surplus to the grid earns credit, so the grid effectively acts as your battery at no extra cost. Add a battery only if you face frequent cuts or need specific critical loads to ride through them."),
     ("compost", "Is composting mandatory for housing societies in NCR?",
      "Increasingly yes. Bulk waste generators, which includes many housing societies, are required to segregate and process wet waste on site under solid waste rules. Requirements and enforcement vary by local body, so check your municipal corporation's current rules."),
+    ("battery", "How long do home lithium batteries last?",
+     "Quality LFP (lithium iron phosphate) home batteries last 8-12 years and 3,000-6,000 charge cycles, considerably longer than old lead-acid inverter batteries, and they charge faster and need no water top-ups."),
+    ("battery", "Is there any government subsidy on home batteries in India?",
+     "No. The PM Surya Ghar scheme subsidises solar panels, not storage, so a home battery is currently an out-of-pocket resilience purchase rather than a bill-saving one."),
+    ("battery", "What size battery does a typical NCR home need?",
+     "Size it to your essential loads, not the whole house. Most homes wanting a few hours of backup for lights, fans, fridge and Wi-Fi land on a 2.5-5 kWh pack, which keeps cost sensible."),
+    ("compost", "How much does it cost to start composting at home?",
+     "You can start for under Rs 2,000 with a terracotta khamba or a tumbler composter that sits on a balcony or in a corner of the yard and turns kitchen waste into compost in about 6-8 weeks."),
+    ("compost", "Why does my home compost smell bad?",
+     "Almost always too much moisture. Add dry browns such as shredded newspaper or dried leaves, and keep meat and dairy out of a home bin to avoid odour and pests."),
 ]
 
 

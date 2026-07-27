@@ -1,18 +1,35 @@
-from django.urls import path
-
-from . import views
-
+from pathlib import Path
+ 
+from django.conf import settings # pyright: ignore[reportMissingModuleSource]
+from django.contrib import admin # pyright: ignore[reportMissingModuleSource]
+from django.contrib.sitemaps.views import sitemap # pyright: ignore[reportMissingModuleSource]
+from django.http import FileResponse # pyright: ignore[reportMissingModuleSource]
+from django.urls import include, path # pyright: ignore[reportMissingModuleSource]
+from django.views.generic import TemplateView # type: ignore
+ 
+from directory.sitemaps import (
+    CategorySitemap, CitySitemap, GuideSitemap, StaticSitemap, ToolSitemap,
+)
+ 
+BASE_DIR = settings.BASE_DIR
+ 
+sitemaps = {
+    "static": StaticSitemap,
+    "categories": CategorySitemap,
+    "tools": ToolSitemap,
+    "guides": GuideSitemap,
+    "cities": CitySitemap,
+}
+ 
 urlpatterns = [
-    path("", views.home, name="home"),
-    path("solutions/", views.solutions, name="solutions"),
-    path("solutions/<slug:slug>/", views.category_detail, name="category"),
-    path("dealers/", views.dealers, name="dealers"),
-    path("dealers/<slug:slug>/", views.city_detail, name="city"),
-    path("tools/", views.tools, name="tools"),
-    path("tools/<slug:slug>/", views.tool_detail, name="tool"),
-    path("learn/", views.learn, name="learn"),
-    path("learn/<slug:slug>/", views.guide_detail, name="guide"),
-    path("get-quotes/", views.enquiry, name="enquiry"),
-    path("list-your-business/", views.list_business, name="list_business"),
-    path("about/", views.about, name="about"),
+    path("vatsu-admin/", admin.site.urls),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
+    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+    path("llms.txt", TemplateView.as_view(template_name="llms.txt", content_type="text/plain")),
+    path("site.webmanifest", TemplateView.as_view(template_name="site.webmanifest", content_type="application/manifest+json")),
+    path("favicon.ico", lambda r: FileResponse(
+        open(BASE_DIR / "directory/static/img/favicon.ico", "rb"),
+        content_type="image/x-icon")),
+    path("", include("directory.urls")),
 ]
+handler404 = "directory.views.custom_404"

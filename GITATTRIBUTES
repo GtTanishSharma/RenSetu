@@ -1,0 +1,9 @@
+# Force LF line endings on files that run on Linux (Render).
+# Without this, Windows Git converts them to CRLF and breaks the deploy.
+*.sh    text eol=lf
+Procfile text eol=lf
+build.sh text eol=lf
+*.py    text eol=lf
+
+# Let Git auto-handle everything else normally.
+* text=auto

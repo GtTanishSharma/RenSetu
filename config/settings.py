@@ -64,7 +64,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-#yea check 1 
+
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Kolkata"
 USE_I18N = True
@@ -84,5 +84,12 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    # HSTS: tells browsers to only use HTTPS for this domain.
+    # NOTE: once a browser caches this, it will refuse plain HTTP for the full
+    # duration below. Only keep this on when you're sure HTTPS is working on
+    # your live domain. Start smaller (e.g. 3600) if you want to test first.
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 SITE_ID = 1
