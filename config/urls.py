@@ -1,8 +1,8 @@
-from django.contrib import admin
-from django.contrib.sitemaps.views import sitemap
-from django.contrib.staticfiles.storage import staticfiles_storage
-from django.urls import include, path
-from django.views.generic import RedirectView, TemplateView
+from django.contrib import admin # pyright: ignore[reportMissingModuleSource]
+from django.contrib.sitemaps.views import sitemap # pyright: ignore[reportMissingModuleSource]
+from django.contrib.staticfiles.storage import staticfiles_storage # pyright: ignore[reportMissingModuleSource]
+from django.urls import include, path # pyright: ignore[reportMissingModuleSource]
+from django.views.generic import RedirectView, TemplateView # pyright: ignore[reportMissingModuleSource]
 
 from directory.sitemaps import (
     CategorySitemap, CitySitemap, GuideSitemap, StaticSitemap, ToolSitemap,
