@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     "import_export",
     "directory",
 ]
-
+#changes 2
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
