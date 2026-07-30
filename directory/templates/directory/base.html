@@ -28,11 +28,17 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebSite",
+  "@type": "Organization",
   "name": "RenSetu",
   "url": "https://rensetu.in/",
-  "description": "The green energy directory for {{ site.region }} \u2014 trusted local dealers, free planning tools and honest guides.",
-  "publisher": {"@type": "Organization", "name": "RenSetu", "url": "https://rensetu.in/", "areaServed": "{{ site.region }}"}
+  "logo": "https://rensetu.in/static/img/logo-icon.png",
+  "email": "rensetu.in@gmail.com",
+  "description": "Green energy directory for Delhi NCR covering rooftop solar, rainwater harvesting, EV charging and more.",
+  "areaServed": {"@type": "Place", "name": "Delhi NCR, India"},
+  "sameAs": [
+    "https://www.instagram.com/rensetu.in/"
+  ],
+  "knowsAbout": ["Rooftop Solar", "Solar Water Heater", "Terrace Wind Turbine", "Rainwater Harvesting", "EV Charging Setup", "Battery & Backup", "Home Biogas", "Composting & Waste", "Cool & Green Roofing", "Greywater Recycling"]
 }
 </script>
 {% block schema %}{% endblock %}
